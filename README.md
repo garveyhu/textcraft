@@ -30,8 +30,18 @@ nohup ./start.sh &
 也可以通过docker构建，打开终端，进入包含`Dockerfile`的项目目录，然后运行以下命令：
 
 ```bash
-docker build -t langchain:v1 .
-docker run -d --name langchain_1 -p 8000:8000 --env-file .env langchain:v1
+sudo docker build -t langchain:v1 .
+sudo docker run -d --name langchain_1 -p 8000:8000 --env-file .env langchain:v1
+```
+
+需要代理时（和宿主机共享网络）
+
+```bash
+# 设置共享网络且设置代理变量
+sudo docker run --network host -d -e https_proxy=http://127.0.0.1:7890 -e http_proxy=http://127.0.0.1:7890 -e all_proxy=socks5://127.0.0.1:7890 --name langchain_1 -p 8000:8000 --env-file .env langchain:v1
+# 测试代理
+sudo docker exec -it langchain_1 /bin/bash
+curl ifconfig.me
 ```
 
 #### 使用LangChain集成的LLM接口

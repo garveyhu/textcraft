@@ -3,3 +3,4 @@ uvicorn
 langchain==0.0.235
 openai
 python-multipart
+tiktoken
