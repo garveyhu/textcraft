@@ -1,24 +1,25 @@
 from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import JSONResponse
-from summarize.OpenAISummarize import summarize_file
+from summarize.openai_summarize import OpenAISummarizer
 import uvicorn
 from io import StringIO
 
 app = FastAPI()
 
-@app.post("/summarize/")
-async def summarize(file: UploadFile = File(...)):
+@app.post("/summarize/file")
+async def summarize_file(file: UploadFile = File(...)):
     content = await file.read()
     try:
         decoded_content = content.decode('utf-8')
     except UnicodeDecodeError:
         return JSONResponse(content={"error": "Invalid file encoding"}, status_code=400)
-    
-    # 创建一个 StringIO 对象，模仿文件对象
     file_like_object = StringIO(decoded_content)
-    
-    # 传递给 summarize_file 函数
-    summary = summarize_file(file_like_object)
+    summary = OpenAISummarizer().summarize_file(file_like_object)
+    return {"summary": summary}
+
+@app.post("/summarize/text")
+async def summarize_text(long_text: str):
+    summary = OpenAISummarizer().summarize_text(long_text)
     return {"summary": summary}
 
 if __name__ == "__main__":
