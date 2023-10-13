@@ -17,5 +17,5 @@ qa = VectorDBQA.from_chain_type(
     llm=llm, chain_type="stuff", vectorstore=docsearch, return_source_documents=True
 )
 # 进行问答
-result = qa({"query": "父亲说了几句话？"})
+result = qa({"query": "这篇文章的作者是谁"})
 print(result.get("result", ""))

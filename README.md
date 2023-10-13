@@ -23,7 +23,7 @@ Off-the-shelf chains make it easy to get started. For complex applications, comp
 确保安装python解释器
 
 ```bash
-pip install -r requirements.txt
+pip install -e .
 nohup ./start.sh &
 ```
 
