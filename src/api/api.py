@@ -3,6 +3,7 @@ from fastapi.responses import JSONResponse
 from summarize.openai_summarize import OpenAISummarizer
 from summarize.spark_summarize import SparkSummarizer
 from io import StringIO
+from pinecone_store.pinecone_qa import vector_qa
 
 app = FastAPI()
 
@@ -37,3 +38,7 @@ async def summarize_spark_file(file: UploadFile = File(...)):
 async def summarize_spark_text(long_text: str):
     summary = SparkSummarizer().summarize_text(long_text)
     return {"summary": summary}
+
+@app.post("/pinecone_store/qa")
+async def pinecone_store_qa(question: str):
+    return vector_qa(question)
