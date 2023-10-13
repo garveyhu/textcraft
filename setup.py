@@ -13,6 +13,7 @@ setup(
         'python-multipart',
         'tiktoken',
         'websocket-client',
-        'transformers'
+        'transformers',
+        'pinecone-client'
     ]
 )
