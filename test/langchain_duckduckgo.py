@@ -1,4 +1,4 @@
 from langchain.tools import DuckDuckGoSearchRun
 
 search = DuckDuckGoSearchRun()
-search.run("Who is winner of FIFA worldcup 2018?")
+print(search.run("Who is winner of FIFA worldcup 2018?"))

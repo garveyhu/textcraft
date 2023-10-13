@@ -1,4 +1,4 @@
-from summarize.spark.SparkChat import Spark
+from model.spark.SparkChat import Spark
 from summarize.summarize import Summarizer
 
 class SparkSummarizer(Summarizer):
