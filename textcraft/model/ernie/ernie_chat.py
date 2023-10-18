@@ -10,8 +10,8 @@ from langchain.callbacks.manager import CallbackManagerForLLMRun
 from textcraft.config import Config
 
 cfg = Config()
-API_KEY = cfg.ERNIE_API_KEY
-SECRET_KEY = cfg.ERNIE_API_SECRET
+API_KEY = cfg.ernie_api_key
+SECRET_KEY = cfg.ernie_api_secret
 langchain.llm_cache = InMemoryCache()
 
 class Ernie(LLM):

@@ -12,7 +12,7 @@ from langchain.callbacks.manager import CallbackManagerForLLMRun
 from textcraft.config import Config
 
 cfg = Config()
-dashscope.api_key = cfg.QWEN_API_KEY
+dashscope.api_key = cfg.qwen_api_key
 langchain.llm_cache = InMemoryCache()
 result_list = []
 

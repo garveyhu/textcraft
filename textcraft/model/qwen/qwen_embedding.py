@@ -8,8 +8,7 @@ from langchain.embeddings.base import Embeddings
 from textcraft.config import Config
 
 cfg = Config()
-dashscope.api_key = cfg.QWEN_API_KEY
-
+dashscope.api_key = cfg.qwen_api_key
 
 class QwenEmbedding(Embeddings):
 
