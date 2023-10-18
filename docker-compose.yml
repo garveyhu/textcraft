@@ -1,0 +1,21 @@
+version: "3"
+services:
+  fastapi:
+    build:
+      context: .
+    ports:
+      - "8000:8000"
+    environment:
+      - https_proxy=http://127.0.0.1:7890
+      - http_proxy=http://127.0.0.1:7890
+      - all_proxy=socks5://127.0.0.1:7890
+
+  gradio:
+    build:
+      context: .
+    ports:
+      - "7860:7860"
+    environment:
+      - https_proxy=http://127.0.0.1:7890
+      - http_proxy=http://127.0.0.1:7890
+      - all_proxy=socks5://127.0.0.1:7890
