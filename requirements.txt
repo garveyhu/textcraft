@@ -1,5 +1,6 @@
 dashscope
 fastapi
+gradio
 langchain==0.0.235
 openai
 pinecone-client
