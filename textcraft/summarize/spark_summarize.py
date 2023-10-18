@@ -1,5 +1,5 @@
-from model.spark.SparkChat import Spark
-from summarize.summarize import Summarizer
+from textcraft.model.spark.spark_chat import Spark
+from textcraft.summarize.summarize import Summarizer
 
 class SparkSummarizer(Summarizer):
     def __init__(self):

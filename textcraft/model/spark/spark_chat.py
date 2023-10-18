@@ -5,28 +5,30 @@ import hashlib
 import hmac
 import json
 import ssl
-import websocket
-import langchain
 import logging
 from urllib.parse import urlparse
-from datetime import datetime
-from time import mktime
 from urllib.parse import urlencode
-from wsgiref.handlers import format_date_time
+from time import mktime
+from datetime import datetime
 from typing import Optional, Mapping, Any
+from typing import List
+from wsgiref.handlers import format_date_time
+
+import websocket
+import langchain
 from langchain.llms.base import LLM
 from langchain.cache import InMemoryCache
-from typing import List
-import os
 
-SPARK_APPID = os.getenv("SPARK_APPID")
-SPARK_API_KEY = os.getenv("SPARK_API_KEY")
-SPARK_API_SECRET = os.getenv("SPARK_API_SECRET")
+from textcraft.config import Config
+
+cfg = Config()
+SPARK_APPID = cfg.spark_appid
+SPARK_API_KEY = cfg.spark_api_key
+SPARK_API_SECRET = cfg.spark_api_secret
+
 logging.basicConfig(level=logging.INFO)
-# 启动llm的缓存
 langchain.llm_cache = InMemoryCache()
 result_list = []
-
 
 def _construct_query(prompt, temperature, max_tokens):
     data = {

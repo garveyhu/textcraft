@@ -1,19 +1,11 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 
 setup(
-    name='langchain_experiment',
-    version='0.0.1',
-    packages=find_packages(where='src'),
-    package_dir={'': 'src'},
-    install_requires=[
-        'fastapi',
-        'uvicorn',
-        'langchain==0.0.235',
-        'openai',
-        'python-multipart',
-        'tiktoken',
-        'websocket-client',
-        'transformers',
-        'pinecone-client'
-    ]
+    name='textcraft',
+    version='0.0.2',
+    description='Amplify llm capabilities through langchain',
+    author='Archer',
+    author_email='archeruuuu@gmail.com',
+    url='https://github.com/garveyhu/textcraft',
+    packages=['textcraft'],
 )

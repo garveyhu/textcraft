@@ -1,0 +1,12 @@
+dashscope
+fastapi
+langchain==0.0.235
+openai
+pinecone-client
+python-dotenv
+python-multipart
+rich
+transformers
+tiktoken
+uvicorn
+websocket-client

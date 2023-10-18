@@ -1,2 +1,2 @@
-#!/bin/bash
+@echo off
 python -m textcraft

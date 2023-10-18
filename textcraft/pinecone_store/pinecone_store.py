@@ -1,12 +1,14 @@
+import pinecone 
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.vectorstores import Pinecone
-import pinecone 
 from langchain.document_loaders import TextLoader
-import os
 
-PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
-PINECONE_ENV = os.getenv("PINECONE_ENV")
+from textcraft.config import Config
+
+cfg = Config()
+PINECONE_API_KEY = cfg.pinecone_api_key
+PINECONE_ENV = cfg.pinecone_env
 
 def store_document(document) -> Pinecone:
     print(f'document:{len(document)}')

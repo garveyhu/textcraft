@@ -1,60 +1,71 @@
-# LangChain-连接LLM
+# TextCraft: amplify llm capabilities through langchain
 
-## [Introduction](https://python.langchain.com/docs/get_started/introduction)
+## 🦖 介绍
 
-**LangChain** is a framework for developing applications powered by language models. It enables applications that:
+ 一种利用 [langchain](https://github.com/hwchase17/langchain) 思想实现的放大llm能力的应用，用以建立一套对中文场景与开源模型支持友好的llm应用解决方案。
 
-- **Are context-aware**: connect a language model to sources of context (prompt instructions, few shot examples, content to ground its response in, etc.)
-- **Reason**: rely on a language model to reason (about how to answer based on provided context, what actions to take, etc.)
-
-The main value props of LangChain are:
-
-1. **Components**: abstractions for working with language models, along with a collection of implementations for each abstraction. Components are modular and easy-to-use, whether you are using the rest of the LangChain framework or not
-2. **Off-the-shelf chains**: a structured assembly of components for accomplishing specific higher-level tasks
-
-Off-the-shelf chains make it easy to get started. For complex applications, components make it easy to customize existing chains and build new ones.
-
-## Summarize
-
-使用LangChain对文档进行摘要总结
-
-#### 运行项目
-
-确保安装python解释器
+## 🌟 Quickstart
 
 ```bash
+# 安装依赖
 pip install -e .
-nohup ./start.sh &
+pip install -r requirements.txt
+
+# windows启动项目
+.\start.bat 
+# linux启动项目
+.\start.sh
 ```
 
-也可以通过docker构建，打开终端，进入包含`Dockerfile`的项目目录，然后运行以下命令：
+## 🐳 Docker 部署
+
+进入包含`Dockerfile`的项目目录，然后运行以下命令：
 
 ```bash
 sudo docker build -t langchain:v1 .
-sudo docker run -d --name langchain_1 -p 8000:8000 --env-file .env langchain:v1
+sudo docker run -d --name langchain_1 -p 8000:8000 langchain:v1
 ```
 
 需要代理时（和宿主机共享网络）
 
 ```bash
 # 设置共享网络且设置代理变量
-sudo docker run --network host -d -e https_proxy=http://127.0.0.1:7890 -e http_proxy=http://127.0.0.1:7890 -e all_proxy=socks5://127.0.0.1:7890 --name langchain_1 -p 8000:8000 --env-file .env langchain:v1
-# 测试代理
-sudo docker exec -it langchain_1 /bin/bash
-curl ifconfig.me
+sudo docker run --network host -d -e https_proxy=http://127.0.0.1:7890 -e http_proxy=http://127.0.0.1:7890 -e all_proxy=socks5://127.0.0.1:7890 --name langchain_1 -p 8000:8000 langchain:v1
 ```
 
-#### 使用LangChain集成的LLM接口
+## 🚁 模型支持
 
-**使用 Web 浏览器进行测试**
+#### LLM 模型支持
 
-FastAPI 自动生成了一个交互式API文档，你可以在浏览器中访问它。
+在线 LLM 模型目前已支持：
 
-1. 在浏览器地址栏输入：`http://localhost:8000/docs`
-2. 这会打开一个交互式界面，你可以点击“Try it out”按钮，然后上传一个文件进行测试。
+- [ChatGPT](https://api.openai.com/)
+- [讯飞星火](https://xinghuo.xfyun.cn/)
+- [百度千帆](https://cloud.baidu.com/product/wenxinworkshop?track=dingbutonglan)
+- [阿里云通义千问](https://dashscope.aliyun.com/)
+- [百川](https://www.baichuan-ai.com/home#api-enter) (个人用户 API_KEY 暂未开放)
 
-任何一种方法都会返回一个包含摘要的JSON对象。
+#### Embedding 模型支持
 
-注意：确保FastAPI应用正在运行，否则上面的请求将无法工作。如果你更改了host或端口，请相应地更新URL。
+- [OpenAI/text-embedding-ada-002](https://platform.openai.com/docs/guides/embeddings)
+- [阿里云通义千问](https://dashscope.aliyun.com/)
 
-![image-20231009165651583](http://124.220.51.225/images/web/images/large/fastapi.jpg)
+## 🦴 功能示例
+
+#### API
+
+通过FastAPI 自动生成了一个交互式API文档，打开浏览器访问：
+
+1. 浏览器地址栏输入：`http://127.0.0.1:8000/docs`
+2. 在FastAPI界面，选择API点击“Try it out”，然后对API进行测试。
+
+![image-20231009165651583](http://124.220.51.225/images/archer/fastapi.jpg)
+
+#### WebUI
+
+通过Gradio可视化LLM能力，打开浏览器访问：
+
+1. 浏览器地址栏输入：`http://127.0.0.1:7860/`
+2. 在Gradio界面，通过对话框对LLm进行测试。
+
+![image-20231009165651583](http://124.220.51.225/images/archer/gradio.jpg)

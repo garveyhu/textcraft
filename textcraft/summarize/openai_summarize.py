@@ -1,5 +1,6 @@
 from langchain import OpenAI
-from summarize.summarize import Summarizer
+
+from textcraft.summarize.summarize import Summarizer
 
 class OpenAISummarizer(Summarizer):
     def __init__(self):
