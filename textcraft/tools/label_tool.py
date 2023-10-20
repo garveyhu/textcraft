@@ -29,8 +29,7 @@ class LabelTool(BaseTool):
         pass
 
     def run_for_label(self, text):
-        labels = "存款，基金，债券，股票，保险"
-        return self.get_label(text, labels)
+        return self.get_label(text, self.labels)
 
     def get_label(self, text, labels):
         response = Understanding.call(
