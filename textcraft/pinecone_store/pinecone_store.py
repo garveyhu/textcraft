@@ -1,4 +1,4 @@
-from typing import Any
+from typing import List, Dict, Union
     
 import pinecone
 from langchain.text_splitter import CharacterTextSplitter
@@ -37,12 +37,8 @@ def store_document(document) -> Pinecone:
     return docsearch
 
 
-def store_text(text, **kwargs: Any) -> Pinecone:
-    text_splitter = CharacterTextSplitter(
-        chunk_size=1000, chunk_overlap=0, separator="\n"
-    )
-    texts = text_splitter.split_text(text)
-    docs = [Document(page_content=t, metadata=kwargs) for t in texts]
+def store_paragraphs(paragraphs: List[Dict[str, Union[str, Dict[str, str]]]]) -> Pinecone:
+    docs = [Document(page_content=paragraph['page_content'], metadata=paragraph['metadata']) for paragraph in paragraphs]
 
     index_name = "langchain"
 

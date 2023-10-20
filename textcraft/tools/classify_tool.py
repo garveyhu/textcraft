@@ -1,6 +1,6 @@
 from langchain.tools import BaseTool
 
-from textcraft.tools.label_tool import AliUnderstand
+from textcraft.tools.label_tool import LabelTool
 
 
 class ClassifyTool(BaseTool):
@@ -8,6 +8,7 @@ class ClassifyTool(BaseTool):
     description = (
         "分类工具"
     )
+    labels = ""
 
     def _run(self, text: str, run_manager=None) -> str:
         return self.run_for_classify(text)
@@ -20,8 +21,8 @@ class ClassifyTool(BaseTool):
         pass
 
     def run_for_classify(self, text):
-        labels = "传统业务知识，信用卡业务知识，公共业务知识，金融知识，保险知识，其他知识"
-        return AliUnderstand().get_label(text, labels)
+        print(self.labels)
+        return LabelTool().get_label(text, self.labels)
     
 if __name__ == "__main__":
     classify = ClassifyTool()

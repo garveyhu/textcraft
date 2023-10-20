@@ -1,13 +1,18 @@
+from typing import List, Dict, Union
+
 from langchain.tools import BaseTool
+
+from textcraft.pinecone_store.pinecone_store import store_paragraphs
 
 class VectorStoreTool(BaseTool):
     name = "向量存储工具"
     description = (
         "文档存储pinecone"
     )
+    paragraphs = []
 
     def _run(self, text: str, run_manager=None) -> str:
-        return self.run_for_vector_store(text)
+        return self.run_for_vector_store(self.paragraphs)
     
     async def _arun(
             self,
@@ -16,5 +21,5 @@ class VectorStoreTool(BaseTool):
     ) -> str:
         pass
 
-    def run_for_vector_store(self, text):
-        return None
+    def run_for_vector_store(self, paragraphs: List[Dict[str, Union[str, Dict[str, str]]]]):
+        return store_paragraphs(paragraphs)

@@ -11,11 +11,12 @@ cfg = Config()
 dashscope.api_key = cfg.qwen_api_key
 
 
-class AliUnderstand(BaseTool):
+class LabelTool(BaseTool):
     name = "标签工具"
     description = (
         "使用Ali的understanding给文本打上标签"
     )
+    labels = ""
 
     def _run(self, text: str, run_manager=None) -> str:
         return self.run_for_label(text)
@@ -50,7 +51,7 @@ class AliUnderstand(BaseTool):
 
 
 if __name__ == "__main__":
-    understand = AliUnderstand()
+    understand = LabelTool()
     sentence = "某股份制银行推出的1年期、2年期、3年期的礼仪存单，利率分别是2.25%、2.85%、3.50%，每个期限的礼仪存单利率只比同期限的大额存单利率低0.05个百分点。"
     labels = "存款，基金，债券，股票，保险"
     label = understand.get_label(sentence, labels)

@@ -1,4 +1,5 @@
 from io import StringIO
+from typing import List, Dict, Union
 
 import uvicorn
 from fastapi import FastAPI, File, UploadFile
@@ -7,10 +8,11 @@ from fastapi.responses import JSONResponse
 from textcraft.summarize.openai_summarize import OpenAISummarizer
 from textcraft.summarize.spark_summarize import SparkSummarizer
 from textcraft.tools.title_tool import TitleTool
-from textcraft.tools.label_tool import AliUnderstand
+from textcraft.tools.label_tool import LabelTool
 from textcraft.tools.classify_tool import ClassifyTool
 from textcraft.tools.qa_tool import QATool
 from textcraft.tools.similarity_search_tool import SimilaritySearchTool
+from textcraft.tools.vector_store_tool import VectorStoreTool
 
 app = FastAPI()
 
@@ -53,13 +55,17 @@ async def title_tool(text: str):
 
 
 @app.get("/tools/classify")
-async def classify_tool(text: str):
-    return ClassifyTool().run(text)
+async def classify_tool(text: str, labels: str):
+    classify_tool = ClassifyTool()
+    classify_tool.labels = labels
+    return classify_tool.run(text)
 
 
 @app.get("/tools/label")
-async def label_tool(text: str):
-    return AliUnderstand().run(text)
+async def label_tool(text: str, labels: str):
+    label_tool = LabelTool()
+    label_tool.labels = labels
+    return label_tool.run(text)
 
 
 @app.get("/tools/qa")
@@ -68,8 +74,10 @@ async def qa_tool(text: str):
 
 
 @app.post("/tools/vector_store")
-async def vector_store_tool(text: str):
-    return QATool().run(text)
+async def vector_store_tool(paragraphs: List[Dict[str, Union[str, Dict[str, str]]]]):
+    vector_store_tool = VectorStoreTool()
+    vector_store_tool.paragraphs = paragraphs
+    return vector_store_tool.run('')
 
 
 @app.get("/tools/similarity_search")
