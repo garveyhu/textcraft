@@ -1,15 +1,6 @@
-import pinecone
 from langchain.tools import BaseTool
-from langchain.vectorstores import Pinecone
 
-from textcraft.model.qwen.qwen_embedding import QwenEmbedding
-from textcraft.config import Config
-
-cfg = Config()
-PINECONE_API_KEY = cfg.pinecone_api_key
-PINECONE_ENV = cfg.pinecone_env
-pinecone.init(api_key=PINECONE_API_KEY, environment=PINECONE_ENV)
-embeddings = QwenEmbedding()
+from textcraft.pinecone_store.pinecone_store import similarity_search
 
 class SimilaritySearchTool(BaseTool):
     name = "向量存储工具"
@@ -28,6 +19,4 @@ class SimilaritySearchTool(BaseTool):
         pass
 
     def run_for_similarity_search(self, text):
-        docsearch = Pinecone.from_existing_index("langchain", embeddings)
-        docs = docsearch.similarity_search_with_score(text, 2)
-        return docs
+        return similarity_search(text)

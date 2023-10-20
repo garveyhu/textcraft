@@ -10,6 +10,7 @@ from textcraft.tools.title_tool import TitleTool
 from textcraft.tools.label_tool import AliUnderstand
 from textcraft.tools.classify_tool import ClassifyTool
 from textcraft.tools.qa_tool import QATool
+from textcraft.tools.similarity_search_tool import SimilaritySearchTool
 
 app = FastAPI()
 
@@ -73,7 +74,7 @@ async def vector_store_tool(text: str):
 
 @app.get("/tools/similarity_search")
 async def similarity_search_tool(text: str):
-    return QATool().run(text)
+    return SimilaritySearchTool().run(text)
 
 
 if __name__ == "__main__":
