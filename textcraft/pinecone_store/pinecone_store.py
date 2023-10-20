@@ -1,9 +1,9 @@
 import pinecone 
-from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.vectorstores import Pinecone
 from langchain.document_loaders import TextLoader
 
+from textcraft.model.qwen.qwen_embedding import QwenEmbedding
 from textcraft.config import Config
 
 cfg = Config()
@@ -16,7 +16,7 @@ def store_document(document) -> Pinecone:
     docs = text_splitter.split_documents(document)
     print(f'split_documents:{len(docs)}')
     
-    embeddings = OpenAIEmbeddings()
+    embeddings = QwenEmbedding()
     pinecone.init(api_key=PINECONE_API_KEY, environment=PINECONE_ENV)
 
     index_name = "langchain"
