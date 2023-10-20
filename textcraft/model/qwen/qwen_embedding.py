@@ -25,12 +25,15 @@ class QwenEmbedding(Embeddings):
         # print(resp)
         if resp.status_code == HTTPStatus.OK:
             list = resp.output["embeddings"]
+            # print(len(list))
             if len(list) > 1:
                 data = []
                 for item in list:
                     data.append(item["embedding"])
                 return data
             else:
+                # print(list[0]["embedding"])
+                # print(len(list[0]["embedding"]))
                 return list[0]["embedding"]
         else:
             return resp

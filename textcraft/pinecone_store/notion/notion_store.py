@@ -14,7 +14,7 @@ loader = NotionDBLoader(
 def clean_metadata(document):
     for key, value in document.metadata.items():
         if value is None:
-            document.metadata[key] = "None"  # 选择你的处理方式
+            document.metadata[key] = "None"
     return document
 
 docs = loader.load()
