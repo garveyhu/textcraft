@@ -77,7 +77,10 @@ async def qa_tool(text: str):
 async def vector_store_tool(paragraphs: List[Dict[str, Union[str, Dict[str, str]]]]):
     vector_store_tool = VectorStoreTool()
     vector_store_tool.paragraphs = paragraphs
-    return vector_store_tool.run('')
+    result = vector_store_tool.run('')
+    if result is None:
+        return JSONResponse(content={"error": "Invalid file format"}, status_code=400)
+    return JSONResponse(content="success", status_code=200)
 
 
 @app.get("/tools/similarity_search")

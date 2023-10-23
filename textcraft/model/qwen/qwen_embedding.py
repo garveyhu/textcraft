@@ -13,27 +13,32 @@ dashscope.api_key = cfg.qwen_api_key
 class QwenEmbedding(Embeddings):
 
     def embed_documents(self, texts: List[str]) -> List[List[float]]:
-        return self.embed_with_str(texts)
+        print("=======>embed_documents")
+        return self.embed_with_str(texts, 0)
 
     def embed_query(self, text: str) -> List[float]:
-        return self.embed_with_str(text)
+        print("=======>embed_query")
+        return self.embed_with_str(text, 1)
 
-    def embed_with_str(self, text):
+    def embed_with_str(self, text, type):
+        print(type)
         resp = TextEmbedding.call(
             model=TextEmbedding.Models.text_embedding_v1,
             input=text)
-        # print(resp)
+        print(resp)
         if resp.status_code == HTTPStatus.OK:
             list = resp.output["embeddings"]
-            # print(len(list))
             if len(list) > 1:
                 data = []
                 for item in list:
                     data.append(item["embedding"])
                 return data
             else:
-                # print(list[0]["embedding"])
-                # print(len(list[0]["embedding"]))
-                return list[0]["embedding"]
+                print(len(list[0]["embedding"]))
+                if type == 0:
+                    list2 = [list[0]["embedding"]]
+                    return list2
+                else:
+                    return list[0]["embedding"]
         else:
             return resp
