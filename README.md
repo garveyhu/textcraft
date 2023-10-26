@@ -24,9 +24,9 @@
 进入包含`Dockerfile`的项目目录，然后运行以下命令：
 
 ```bash
-sudo docker build -t langchain:v1 .
+sudo docker build -t textcraft:v1 .
 # 和宿主机共享网络，设置代理变量
-sudo docker run --network host -d -e https_proxy=http://127.0.0.1:7890 -e http_proxy=http://127.0.0.1:7890 -e all_proxy=socks5://127.0.0.1:7890 --name langchain_1 -p 8000:8000 langchain:v1
+sudo docker run --network host -d -e https_proxy=http://127.0.0.1:7890 -e http_proxy=http://127.0.0.1:7890 -e all_proxy=socks5://127.0.0.1:7890 --name textcraft_1 -p 8000:8000 textcraft:v1
 ```
 
 ## 🚁 模型支持
