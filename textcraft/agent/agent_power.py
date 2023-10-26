@@ -5,7 +5,7 @@ from langchain.agents import initialize_agent, Tool
 from langchain.agents import AgentType
 
 from textcraft.model.qwen.qwen_chat import Qwen
-from textcraft.tools.label_tool import AliUnderstand
+from textcraft.tools.label_tool import LabelTool
 from textcraft.tools.title_tool import TitleTool
 from textcraft.tools.qa_tool import QATool
 
@@ -20,7 +20,7 @@ tools = [
     ),
     Tool(
         name="label tool",
-        func=AliUnderstand().run,
+        func=LabelTool().run,
         description="Label the text.",
     ),
     Tool(

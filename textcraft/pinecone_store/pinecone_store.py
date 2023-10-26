@@ -72,7 +72,7 @@ if __name__ == "__main__":
 #     docsearch = store_text("""背影·朱自清
 # 我与父亲不相见已二年余了，我最不能忘记的是他的背影。
 # """, name="Alice", age=30, city="New York")
-    loader = TextLoader("docs/yxzx.txt", encoding="utf-8")
+    loader = TextLoader("docs/1.txt", encoding="utf-8")
     document = loader.load()
     store_document(document)
 #     embeddings = QwenEmbedding()
