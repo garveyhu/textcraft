@@ -4,20 +4,18 @@ import datetime
 import hashlib
 import hmac
 import json
-import ssl
 import logging
-from urllib.parse import urlparse
-from urllib.parse import urlencode
-from time import mktime
+import ssl
 from datetime import datetime
-from typing import Optional, Mapping, Any
-from typing import List
+from time import mktime
+from typing import Any, List, Mapping, Optional
+from urllib.parse import urlencode, urlparse
 from wsgiref.handlers import format_date_time
 
-import websocket
 import langchain
-from langchain.llms.base import LLM
+import websocket
 from langchain.cache import InMemoryCache
+from langchain.llms.base import LLM
 
 from textcraft.config import Config
 
@@ -29,6 +27,7 @@ SPARK_API_SECRET = cfg.spark_api_secret
 logging.basicConfig(level=logging.INFO)
 langchain.llm_cache = InMemoryCache()
 result_list = []
+
 
 def _construct_query(prompt, temperature, max_tokens):
     data = {

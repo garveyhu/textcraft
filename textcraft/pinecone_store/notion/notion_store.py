@@ -11,11 +11,13 @@ loader = NotionDBLoader(
     request_timeout_sec=30,  # optional, defaults to 10
 )
 
+
 def clean_metadata(document):
     for key, value in document.metadata.items():
         if value is None:
             document.metadata[key] = "None"
     return document
+
 
 docs = loader.load()
 cleaned_docs = [clean_metadata(doc) for doc in docs]

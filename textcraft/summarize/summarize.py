@@ -1,11 +1,11 @@
-from langchain.text_splitter import CharacterTextSplitter
-from langchain.docstore.document import Document
 from langchain.chains.summarize import load_summarize_chain
+from langchain.docstore.document import Document
 from langchain.prompts import PromptTemplate
+from langchain.text_splitter import CharacterTextSplitter
 
 
 class Summarizer:
-    """ 
+    """
     总结器
     提炼文本标题
     """

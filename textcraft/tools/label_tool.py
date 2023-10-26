@@ -13,18 +13,16 @@ dashscope.api_key = cfg.qwen_api_key
 
 class LabelTool(BaseTool):
     name = "标签工具"
-    description = (
-        "使用Ali的understanding给文本打上标签"
-    )
+    description = "使用Ali的understanding给文本打上标签"
     labels = ""
 
     def _run(self, text: str, run_manager=None) -> str:
         return self.run_for_label(text)
-    
+
     async def _arun(
-            self,
-            text: str,
-            run_manager=None,
+        self,
+        text: str,
+        run_manager=None,
     ) -> str:
         pass
 

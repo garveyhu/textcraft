@@ -5,20 +5,24 @@ from dotenv import load_dotenv
 # Load environment variables from .env file
 load_dotenv()
 
+
 def singleton(cls):
     instances = {}
+
     def get_instance(*args, **kwargs):
         if cls not in instances:
             instances[cls] = cls(*args, **kwargs)
         return instances[cls]
+
     return get_instance
 
+
 @singleton
-class Config():
+class Config:
     """
     Configuration class to store the variables for different env access.
     """
-    
+
     def __init__(self):
         self.openai_api_key = os.getenv("OPENAI_API_KEY")
         self.huggingfacehub_api_token = os.getenv("HUGGINGFACEHUB_API_TOKEN")

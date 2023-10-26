@@ -1,13 +1,12 @@
-import time
 import textwrap
+import time
 
-from langchain.agents import initialize_agent, Tool
-from langchain.agents import AgentType
+from langchain.agents import AgentType, Tool, initialize_agent
 
 from textcraft.model.qwen.qwen_chat import Qwen
 from textcraft.tools.label_tool import LabelTool
-from textcraft.tools.title_tool import TitleTool
 from textcraft.tools.qa_tool import QATool
+from textcraft.tools.title_tool import TitleTool
 
 llm = Qwen(temperature=0)
 

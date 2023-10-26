@@ -1,13 +1,13 @@
-from typing import List, Dict, Union
-    
+from typing import Dict, List, Union
+
 import pinecone
-from langchain.text_splitter import CharacterTextSplitter
-from langchain.vectorstores import Pinecone
 from langchain.docstore.document import Document
 from langchain.document_loaders import TextLoader
+from langchain.text_splitter import CharacterTextSplitter
+from langchain.vectorstores import Pinecone
 
-from textcraft.model.qwen.qwen_embedding import QwenEmbedding
 from textcraft.config import Config
+from textcraft.model.qwen.qwen_embedding import QwenEmbedding
 
 cfg = Config()
 PINECONE_API_KEY = cfg.pinecone_api_key
@@ -36,8 +36,14 @@ def store_document(document) -> Pinecone:
     docsearch = Pinecone.from_documents(docs, embeddings, index_name=index_name)
     return docsearch
 
-def store_paragraphs(paragraphs: List[Dict[str, Union[str, Dict[str, str]]]]) -> Pinecone:
-    input_docs = [Document(page_content=paragraph['page_content'], metadata=paragraph['metadata']) for paragraph in paragraphs]
+
+def store_paragraphs(
+    paragraphs: List[Dict[str, Union[str, Dict[str, str]]]]
+) -> Pinecone:
+    input_docs = [
+        Document(page_content=paragraph["page_content"], metadata=paragraph["metadata"])
+        for paragraph in paragraphs
+    ]
 
     text_splitter = CharacterTextSplitter(
         chunk_size=2000, chunk_overlap=0, separator="\n"
@@ -49,10 +55,12 @@ def store_paragraphs(paragraphs: List[Dict[str, Union[str, Dict[str, str]]]]) ->
     docsearch = Pinecone.from_documents(docs, embeddings, index_name=index_name)
     return docsearch
 
+
 def similarity_search(query):
     docsearch = Pinecone.from_existing_index("langchain", embeddings)
     docs = docsearch.similarity_search_with_score(query, 2)
     return docs_json(docs)
+
 
 def docs_json(data):
     json_data = []
@@ -62,16 +70,17 @@ def docs_json(data):
         doc_dict = {
             "page_content": doc.page_content,
             "metadata": doc.metadata,
-            "score": score
+            "score": score,
         }
         json_data.append(doc_dict)
-        
+
     return json_data
 
+
 if __name__ == "__main__":
-#     docsearch = store_text("""背影·朱自清
-# 我与父亲不相见已二年余了，我最不能忘记的是他的背影。
-# """, name="Alice", age=30, city="New York")
+    #     docsearch = store_text("""背影·朱自清
+    # 我与父亲不相见已二年余了，我最不能忘记的是他的背影。
+    # """, name="Alice", age=30, city="New York")
     loader = TextLoader("docs/1.txt", encoding="utf-8")
     document = loader.load()
     store_document(document)

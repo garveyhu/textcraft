@@ -1,5 +1,5 @@
 from io import StringIO
-from typing import List, Dict, Union
+from typing import Dict, List, Union
 
 import uvicorn
 from fastapi import FastAPI, File, UploadFile
@@ -7,11 +7,11 @@ from fastapi.responses import JSONResponse
 
 from textcraft.summarize.openai_summarize import OpenAISummarizer
 from textcraft.summarize.spark_summarize import SparkSummarizer
-from textcraft.tools.title_tool import TitleTool
-from textcraft.tools.label_tool import LabelTool
 from textcraft.tools.classify_tool import ClassifyTool
+from textcraft.tools.label_tool import LabelTool
 from textcraft.tools.qa_tool import QATool
 from textcraft.tools.similarity_search_tool import SimilaritySearchTool
+from textcraft.tools.title_tool import TitleTool
 from textcraft.tools.vector_store_tool import VectorStoreTool
 
 app = FastAPI()
@@ -77,7 +77,7 @@ async def qa_tool(text: str):
 async def vector_store_tool(paragraphs: List[Dict[str, Union[str, Dict[str, str]]]]):
     vector_store_tool = VectorStoreTool()
     vector_store_tool.paragraphs = paragraphs
-    result = vector_store_tool.run('')
+    result = vector_store_tool.run("")
     if result is None:
         return JSONResponse(content={"error": "Invalid file format"}, status_code=400)
     return JSONResponse(content="success", status_code=200)

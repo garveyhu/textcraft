@@ -1,16 +1,16 @@
-import requests
-from typing import List
-import logging
-from typing import Optional, Mapping, Any
 import json
+import logging
+from typing import Any, List, Mapping, Optional
 
 import langchain
-from langchain.llms.base import LLM
+import requests
 from langchain.cache import InMemoryCache
+from langchain.llms.base import LLM
 
 logging.basicConfig(level=logging.INFO)
 langchain.llm_cache = InMemoryCache()
 result_list = []
+
 
 class Baichuan(LLM):
     """
