@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "textcraft"
+version = "0.0.2"
+description = "Amplify llm capabilities through langchain"
+authors = ["Archer <archeruuuu@gmail.com>"]
+readme = "README.md"
+license = "Apache-2.0"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+dashscope = "*"
+fastapi = "*"
+gradio = "*"
+httpx = { version = "*", extras = ["socks"] }
+langchain = "0.0.235"
+openai = "*"
+pinecone-client = "*"
+python-dotenv = "*"
+python-multipart = "*"
+rich = "*"
+transformers = "*"
+tiktoken = "*"
+uvicorn = "*"
+websocket-client = "*"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
