@@ -25,13 +25,7 @@
 
 ```bash
 sudo docker build -t langchain:v1 .
-sudo docker run -d --name langchain_1 -p 8000:8000 langchain:v1
-```
-
-需要代理时（和宿主机共享网络）
-
-```bash
-# 设置共享网络且设置代理变量
+# 和宿主机共享网络，设置代理变量
 sudo docker run --network host -d -e https_proxy=http://127.0.0.1:7890 -e http_proxy=http://127.0.0.1:7890 -e all_proxy=socks5://127.0.0.1:7890 --name langchain_1 -p 8000:8000 langchain:v1
 ```
 
