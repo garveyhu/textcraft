@@ -6,16 +6,18 @@
 
 ## 🌟 Quickstart
 
-```bash
-# 安装依赖
-pip install -e .
-pip install -r requirements.txt
+1. 配置环境变量
 
-# windows启动项目
-.\start.bat 
-# linux启动项目
-.\start.sh
-```
+   编辑.env文件，填充自己的key
+
+2. 启动项目
+
+   ```bash
+   # windows
+   .\run.bat 
+   # linux
+   .\run.sh
+   ```
 
 ## 🐳 Docker 部署
 
@@ -41,7 +43,7 @@ sudo docker run --network host -d -e https_proxy=http://127.0.0.1:7890 -e http_p
 
 - [ChatGPT](https://api.openai.com/)
 - [讯飞星火](https://xinghuo.xfyun.cn/)
-- [百度千帆](https://cloud.baidu.com/product/wenxinworkshop?track=dingbutonglan)
+- [百度文心一言](https://yiyan.baidu.com/)
 - [阿里云通义千问](https://dashscope.aliyun.com/)
 - [百川](https://www.baichuan-ai.com/home#api-enter) (个人用户 API_KEY 暂未开放)
 

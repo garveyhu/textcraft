@@ -1,13 +1,17 @@
+# Use the official Python image
 FROM python:3.10
 
+# Set the working directory in the container
 WORKDIR /usr/src/app
 
+# Copy the contents of your local directory to the container's working directory
 COPY . .
 
-RUN pip install --no-cache-dir -e . 
+# Install Poetry
+RUN pip install poetry
 
-RUN pip install -r requirements.txt
+# Make your run.sh script executable (if needed)
+RUN chmod +x ./run.sh
 
-RUN chmod +x ./start.sh
-
-CMD ["./start.sh"]
+# Define the command to run when the container starts
+CMD ["./run.sh"]
