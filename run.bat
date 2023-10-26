@@ -18,7 +18,7 @@ exit /B 1
 %PYTHON_CMD% scripts/check_requirements.py
 if errorlevel 1 (
     echo 
-    %PYTHON_CMD% -m poetry install
+    %PYTHON_CMD% -m poetry install --without dev
     echo
     echo Finished installing packages!
     echo
