@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# Install package Locally for development(optional)
+pip install -e .
+
+poetry install
+echo "Setup completed successfully."
