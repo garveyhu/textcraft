@@ -16,12 +16,12 @@ from textcraft.tools.title_tool import TitleTool
 from textcraft.tools.vector_store_tool import VectorStoreTool
 from textcraft.chains.joketeller import get_chain
 
-app = FastAPI(title="TextCraft API", version="0.0.2", description="TextCraft API")
+app = FastAPI(title="TextCraft API", version="0.0.2")
 
 tag_custom = "custom"
 tag_langserve = "langserve"
 
-add_routes(app, get_chain())
+add_routes(app, get_chain(), path="/langserve")
 
 
 @app.post("/summarize/openai/file", tags=[tag_custom])
