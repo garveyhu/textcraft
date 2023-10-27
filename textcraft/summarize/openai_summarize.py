@@ -1,5 +1,4 @@
-from langchain import OpenAI
-
+from langchain.llms.openai import OpenAI
 from textcraft.summarize.summarize import Summarizer
 
 
