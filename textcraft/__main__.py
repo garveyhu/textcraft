@@ -14,19 +14,22 @@ def run_uvicorn():
 
 
 def run_gradio():
-    iface.launch()
+    iface.launch(server_name="0.0.0.0", server_port=7860)
 
 
-def main():
-    uvicorn_thread = threading.Thread(target=run_uvicorn)
-    gradio_thread = threading.Thread(target=run_gradio)
+def load_thread(app_function):
+    thread = threading.Thread(target=app_function)
+    thread.start()
+    return thread
 
-    uvicorn_thread.start()
-    gradio_thread.start()
 
-    uvicorn_thread.join()
-    gradio_thread.join()
+def main(apps):
+    threads = [load_thread(app) for app in apps]
+
+    for thread in threads:
+        thread.join()
 
 
 if __name__ == "__main__":
-    main()
+    apps = [run_uvicorn, run_gradio]
+    main(apps)
