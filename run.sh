@@ -15,16 +15,9 @@ PYTHON_CMD=$(find_python_command)
 
 if $PYTHON_CMD -c "import sys; sys.exit(sys.version_info < (3, 10))"; then
     $PYTHON_CMD scripts/check_requirements.py
-    if [ $? -eq 1 ]
-    then
-        echo
-        $PYTHON_CMD -m poetry install --without dev
-        echo
-        echo "Finished installing packages!"
-        echo
-    fi
-    echo "Starting TextCraft..."
-    $PYTHON_CMD -m textcraft
+    $PYTHON_CMD -m poetry install --without dev
+    echo "Finished installing packages! Starting TextCraft..."
+    $PYTHON_CMD -m poetry run python -m textcraft
 else
     echo "Python 3.10 or higher is required to run TextCraft."
 fi

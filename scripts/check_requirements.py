@@ -1,37 +1,12 @@
-import contextlib
 import os
 import sys
-from importlib.metadata import version
-
-try:
-    import poetry.factory  # noqa
-except ModuleNotFoundError:
-    os.system(f"{sys.executable} -m pip install poetry")
-
-from poetry.core.constraints.version.version import Version
-from poetry.factory import Factory
 
 
 def main():
-    poetry_project = Factory().create_poetry()
-    # repository = poetry_project.locker.locked_repository()
-    # dependencies = repository.packages
-    dependency_group = poetry_project.package.dependency_group("main")
-
-    missing_packages = []
-    for dep in dependency_group.dependencies:
-        # Try to verify that the installed version is suitable
-        with contextlib.suppress(ModuleNotFoundError):
-            installed_version = version(dep.name)  # if this fails -> not installed
-            if dep.constraint.allows(Version.parse(installed_version)):
-                continue
-        # If the above verification fails, mark the package as missing
-        missing_packages.append(str(dep))
-
-    if missing_packages:
-        print("Missing packages:")
-        print(", ".join(missing_packages))
-        sys.exit(1)
+    try:
+        import poetry.factory
+    except ModuleNotFoundError:
+        os.system(f"{sys.executable} -m pip install poetry")
 
 
 if __name__ == "__main__":

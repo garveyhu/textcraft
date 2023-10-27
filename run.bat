@@ -16,13 +16,7 @@ exit /B 1
 
 :Found
 %PYTHON_CMD% scripts/check_requirements.py
-if errorlevel 1 (
-    echo 
-    %PYTHON_CMD% -m poetry install --without dev
-    echo
-    echo Finished installing packages!
-    echo
-)
-echo Starting TextCraft...
-%PYTHON_CMD% -m textcraft
+%PYTHON_CMD% -m poetry install --without dev
+echo Finished installing packages! Starting TextCraft...
+%PYTHON_CMD% -m poetry run python -m textcraft
 pause
