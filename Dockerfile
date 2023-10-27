@@ -7,9 +7,6 @@ WORKDIR /usr/src/app
 # Copy the contents of your local directory to the container's working directory
 COPY . .
 
-# Install Poetry
-RUN pip install poetry
-
 # Make your run.sh script executable (if needed)
 RUN chmod +x ./run.sh
 
