@@ -12,7 +12,8 @@ dashscope = "*"
 fastapi = "*"
 gradio = "*"
 httpx = { version = "*", extras = ["socks"] }
-langchain = "0.0.235"
+langchain = "*"
+langserve = { version = "*", extras = ["all"] }
 openai = "*"
 pinecone-client = "*"
 python-dotenv = "*"
