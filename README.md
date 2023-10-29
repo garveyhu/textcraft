@@ -8,7 +8,7 @@
 
 1. 配置环境变量
 
-   复制.env.template修改拓展名为.env，添加你的api keys到.env文件
+   复制.env.example修改拓展名为.env，添加你的api keys到.env文件
 
 2. 启动项目
 
