@@ -3,7 +3,7 @@ import time
 
 from langchain.agents import AgentType, Tool, initialize_agent
 
-from textcraft.model.qwen.qwen_chat import Qwen
+from textcraft.models.qwen.qwen_chat import Qwen
 from textcraft.tools.label_tool import LabelTool
 from textcraft.tools.qa_tool import QATool
 from textcraft.tools.title_tool import TitleTool

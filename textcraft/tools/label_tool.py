@@ -5,10 +5,9 @@ import dashscope
 from dashscope import Understanding
 from langchain.tools import BaseTool
 
-from textcraft.config import Config
+from textcraft.core.settings import settings
 
-cfg = Config()
-dashscope.api_key = cfg.qwen_api_key
+dashscope.api_key = settings.QWEN_API_KEY
 
 
 class LabelTool(BaseTool):
