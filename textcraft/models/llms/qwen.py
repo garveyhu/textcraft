@@ -2,16 +2,16 @@ from http import HTTPStatus
 from typing import Any, List, Optional
 
 import dashscope
-import langchain
 from dashscope import Generation
 from langchain.cache import InMemoryCache
 from langchain.callbacks.manager import CallbackManagerForLLMRun
+from langchain.globals import set_llm_cache
 from langchain.llms.base import LLM
 
 from textcraft.core.settings import settings
 
 dashscope.api_key = settings.QWEN_API_KEY
-langchain.llm_cache = InMemoryCache()
+set_llm_cache(InMemoryCache())
 result_list = []
 
 

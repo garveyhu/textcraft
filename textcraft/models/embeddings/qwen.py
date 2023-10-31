@@ -6,16 +6,17 @@ from dashscope import TextEmbedding
 from langchain.embeddings.base import Embeddings
 
 from textcraft.core.settings import settings
+
 dashscope.api_key = settings.QWEN_API_KEY
 
 
 class QwenEmbedding(Embeddings):
     def embed_documents(self, texts: List[str]) -> List[List[float]]:
-        print("embed_documents...")
+        print("Embed search docs...")
         return self.embed_with_str(texts, 0)
 
     def embed_query(self, text: str) -> List[float]:
-        print("embed_query...")
+        print("Embed query text...")
         return self.embed_with_str(text, 1)
 
     def embed_with_str(self, text, type):

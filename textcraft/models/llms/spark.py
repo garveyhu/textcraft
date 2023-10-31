@@ -12,9 +12,9 @@ from typing import Any, List, Mapping, Optional
 from urllib.parse import urlencode, urlparse
 from wsgiref.handlers import format_date_time
 
-import langchain
 import websocket
 from langchain.cache import InMemoryCache
+from langchain.globals import set_llm_cache
 from langchain.llms.base import LLM
 
 from textcraft.core.settings import settings
@@ -24,7 +24,7 @@ SPARK_API_KEY = settings.SPARK_API_KEY
 SPARK_API_SECRET = settings.SPARK_API_SECRET
 
 logging.basicConfig(level=logging.INFO)
-langchain.llm_cache = InMemoryCache()
+set_llm_cache(InMemoryCache())
 result_list = []
 
 

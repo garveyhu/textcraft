@@ -2,13 +2,14 @@ import json
 import logging
 from typing import Any, List, Mapping, Optional
 
-import langchain
 import requests
 from langchain.cache import InMemoryCache
+from langchain.globals import set_llm_cache
 from langchain.llms.base import LLM
 
 logging.basicConfig(level=logging.INFO)
-langchain.llm_cache = InMemoryCache()
+set_llm_cache(InMemoryCache())
+
 result_list = []
 
 

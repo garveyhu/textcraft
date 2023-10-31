@@ -1,9 +1,8 @@
-from langchain.llms.openai import OpenAI
-
 from textcraft.summarize.summarize import Summarizer
+from textcraft.models.llms.openai import openai
 
 
 class OpenAISummarizer(Summarizer):
     def __init__(self):
-        llm = OpenAI(temperature=0.5)
+        llm = openai
         super().__init__(llm)

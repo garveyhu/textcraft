@@ -1,4 +1,4 @@
-from textcraft.models.spark.spark_chat import Spark
+from textcraft.models.llms.spark import Spark
 from textcraft.summarize.summarize import Summarizer
 
 
