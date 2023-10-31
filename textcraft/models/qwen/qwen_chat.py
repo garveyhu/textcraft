@@ -1,4 +1,3 @@
-import json
 from http import HTTPStatus
 from typing import Any, List, Optional
 
@@ -9,10 +8,9 @@ from langchain.cache import InMemoryCache
 from langchain.callbacks.manager import CallbackManagerForLLMRun
 from langchain.llms.base import LLM
 
-from textcraft.config import Config
+from textcraft.core.settings import settings
 
-cfg = Config()
-dashscope.api_key = cfg.qwen_api_key
+dashscope.api_key = settings.QWEN_API_KEY
 langchain.llm_cache = InMemoryCache()
 result_list = []
 

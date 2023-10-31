@@ -7,11 +7,10 @@ from langchain.cache import InMemoryCache
 from langchain.callbacks.manager import CallbackManagerForLLMRun
 from langchain.llms.base import LLM
 
-from textcraft.config import Config
+from textcraft.core.settings import settings
 
-cfg = Config()
-API_KEY = cfg.ernie_api_key
-SECRET_KEY = cfg.ernie_api_secret
+API_KEY = settings.ERNIE_API_KEY
+SECRET_KEY = settings.ERNIE_SECRET_KEY
 langchain.llm_cache = InMemoryCache()
 
 
