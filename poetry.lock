@@ -648,13 +648,13 @@ files = [
 
 [[package]]
 name = "filelock"
-version = "3.13.0"
+version = "3.13.1"
 description = "A platform independent file lock."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "filelock-3.13.0-py3-none-any.whl", hash = "sha256:a552f4fde758f4eab33191e9548f671970f8b06d436d31388c9aa1e5861a710f"},
-    {file = "filelock-3.13.0.tar.gz", hash = "sha256:63c6052c82a1a24c873a549fbd39a26982e8f35a3016da231ead11a5be9dad44"},
+    {file = "filelock-3.13.1-py3-none-any.whl", hash = "sha256:57dbda9b35157b05fb3e58ee91448612eb674172fab98ee235ccb0b5bee19a1c"},
+    {file = "filelock-3.13.1.tar.gz", hash = "sha256:521f5f56c50f8426f5e03ad3b281b490a87ef15bc6c526f168290f0c7148d44e"},
 ]
 
 [package.extras]
@@ -1348,13 +1348,13 @@ files = [
 
 [[package]]
 name = "langchain"
-version = "0.0.325"
+version = "0.0.326"
 description = "Building applications with LLMs through composability"
 optional = false
 python-versions = ">=3.8.1,<4.0"
 files = [
-    {file = "langchain-0.0.325-py3-none-any.whl", hash = "sha256:666bc3614cf323bd09046f0a50eb6bdb86c8b0f1c65edb7163384877f3423b82"},
-    {file = "langchain-0.0.325.tar.gz", hash = "sha256:423bbbf6706486100e56b111206e5ba8d50b41b07e94ebf9946413d5fd038d9d"},
+    {file = "langchain-0.0.326-py3-none-any.whl", hash = "sha256:bee2a622d022d198a5c32831c54f4c7f925893608012b6863a3ff25591a8c620"},
+    {file = "langchain-0.0.326.tar.gz", hash = "sha256:09a86b0d2de000fb2158daa7b0fd8d12086dffaac2e6aed0dbb399c6280be781"},
 ]
 
 [package.dependencies]

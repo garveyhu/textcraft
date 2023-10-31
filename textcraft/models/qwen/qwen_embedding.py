@@ -5,10 +5,8 @@ import dashscope
 from dashscope import TextEmbedding
 from langchain.embeddings.base import Embeddings
 
-from textcraft.config import Config
-
-cfg = Config()
-dashscope.api_key = cfg.qwen_api_key
+from textcraft.core.settings import settings
+dashscope.api_key = settings.QWEN_API_KEY
 
 
 class QwenEmbedding(Embeddings):
