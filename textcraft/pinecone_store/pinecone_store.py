@@ -6,12 +6,11 @@ from langchain.document_loaders import TextLoader
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.vectorstores import Pinecone
 
-from textcraft.config import Config
-from textcraft.model.qwen.qwen_embedding import QwenEmbedding
+from textcraft.core.settings import settings
+from textcraft.models.qwen.qwen_embedding import QwenEmbedding
 
-cfg = Config()
-PINECONE_API_KEY = cfg.pinecone_api_key
-PINECONE_ENV = cfg.pinecone_env
+PINECONE_API_KEY = settings.PINECONE_API_KEY
+PINECONE_ENV = settings.PINECONE_ENV
 embeddings = QwenEmbedding()
 pinecone.init(api_key=PINECONE_API_KEY, environment=PINECONE_ENV)
 
