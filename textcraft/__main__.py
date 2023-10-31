@@ -4,7 +4,7 @@ import threading
 import uvicorn
 
 from textcraft.api.fast_api import app
-from textcraft.ui.gradio_web import iface
+from textcraft.ui.gradio import iface
 
 
 def run_uvicorn():
@@ -16,7 +16,7 @@ def run_gradio():
 
 
 def run_streamlit():
-    subprocess.run(["streamlit", "run", "textcraft/ui/streamlit_web.py"])
+    subprocess.run(["streamlit", "run", "textcraft/ui/streamlit.py"])
 
 
 def load_thread(app_function):
