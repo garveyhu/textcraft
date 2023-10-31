@@ -1,12 +1,10 @@
+import subprocess
 import threading
 
 import uvicorn
 
 from textcraft.api.fast_api import app
-from textcraft.api.gradio_web import iface
-from textcraft.config import Config
-
-cfg = Config()
+from textcraft.ui.gradio_web import iface
 
 
 def run_uvicorn():
@@ -15,6 +13,10 @@ def run_uvicorn():
 
 def run_gradio():
     iface.launch(server_name="0.0.0.0", server_port=7860)
+
+
+def run_streamlit():
+    subprocess.run(["streamlit", "run", "textcraft/ui/streamlit_web.py"])
 
 
 def load_thread(app_function):
@@ -31,5 +33,5 @@ def main(apps):
 
 
 if __name__ == "__main__":
-    apps = [run_uvicorn, run_gradio]
+    apps = [run_uvicorn, run_gradio, run_streamlit]
     main(apps)
