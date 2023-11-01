@@ -7,6 +7,8 @@ from langchain.cache import InMemoryCache
 from langchain.globals import set_llm_cache
 from langchain.llms.base import LLM
 
+from textcraft.core.settings import settings
+
 logging.basicConfig(level=logging.INFO)
 set_llm_cache(InMemoryCache())
 
@@ -21,13 +23,13 @@ class Baichuan(LLM):
     """
 
     url = "http://172.16.0.112:8000/"  # spark官方模型提供api接口
-    temperature = 0.5
 
     @property
     def _llm_type(self) -> str:
         return "baichuan"
 
     def _post(self, prompt):
+        temperature = settings.TEMPERATURE
         param_dict = {"prompt": prompt}
         response = requests.post(url=self.url, json=param_dict)
         content = ""
@@ -48,3 +50,6 @@ class Baichuan(LLM):
         """
         _param_dict = {"url": self.url}
         return _param_dict
+
+def get_baichuan():
+    return Baichuan()

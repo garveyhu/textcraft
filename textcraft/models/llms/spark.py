@@ -19,10 +19,6 @@ from langchain.llms.base import LLM
 
 from textcraft.core.settings import settings
 
-SPARK_APPID = settings.SPARK_APPID
-SPARK_API_KEY = settings.SPARK_API_KEY
-SPARK_API_SECRET = settings.SPARK_API_SECRET
-
 logging.basicConfig(level=logging.INFO)
 set_llm_cache(InMemoryCache())
 result_list = []
@@ -99,7 +95,6 @@ class Spark(LLM):
     host = urlparse(gpt_url).netloc  # host目标机器解析
     path = urlparse(gpt_url).path  # 路径目标解析
     max_tokens = 1024
-    temperature = 0.5
 
     # ws = websocket.WebSocketApp(url='')
 
@@ -115,6 +110,9 @@ class Spark(LLM):
         Returns:
         str: The URL with authorization headers.
         """
+        SPARK_APPID = settings.SPARK_APPID
+        SPARK_API_KEY = settings.SPARK_API_KEY
+        SPARK_API_SECRET = settings.SPARK_API_SECRET
         now = datetime.now()
         date = format_date_time(mktime(now.timetuple()))
 
@@ -152,7 +150,8 @@ class Spark(LLM):
             on_open=on_open,
         )
         ws.question = prompt
-        setattr(ws, "temperature", self.temperature)
+        temperature = settings.TEMPERATURE
+        setattr(ws, "temperature", temperature)
         setattr(ws, "max_tokens", self.max_tokens)
         ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE})
         return ws.content if hasattr(ws, "content") else ""
@@ -172,3 +171,7 @@ class Spark(LLM):
         """
         _param_dict = {"url": self.gpt_url}
         return _param_dict
+
+
+def get_spark():
+    return Spark()

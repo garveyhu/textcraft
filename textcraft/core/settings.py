@@ -10,7 +10,7 @@ class Settings(BaseSettings):
     DEFAULT_EMBEDDING: str = None
     DEFAULT_VECTOR_STORE: str = None
 
-    # langchain
+    # LANGCHAIN
     LANGCHAIN_TRACING_V2: str = None
     LANGCHAIN_ENDPOINT: str = None
     LANGCHAIN_API_KEY: str = None
@@ -30,6 +30,9 @@ class Settings(BaseSettings):
     PINECONE_ENV: str = None
     PINECONE_API_KEY: str = None
 
+    # CONFIG
+    TEMPERATURE: float = 0.5
+    
     # COMPLEX
     ASSEMBLYAI_API_KEY: str = None
     BEARLYAI_API_KEY: str = None

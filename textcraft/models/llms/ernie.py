@@ -9,8 +9,6 @@ from langchain.llms.base import LLM
 
 from textcraft.core.settings import settings
 
-API_KEY = settings.ERNIE_API_KEY
-SECRET_KEY = settings.ERNIE_SECRET_KEY
 set_llm_cache(InMemoryCache())
 
 
@@ -34,7 +32,7 @@ class Ernie(LLM):
             "https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/eb-instant?access_token="
             + self._get_access_token()
         )
-        payload = json.dumps({"messages": [{"role": "user", "content": prompt}]})
+        payload = json.dumps({"messages": [{"role": "user", "content": prompt}], "temperature": settings.TEMPERATURE})
         headers = {"Content-Type": "application/json"}
         response = requests.request("POST", url, headers=headers, data=payload)
         print("=======>" + response.text)
@@ -45,6 +43,8 @@ class Ernie(LLM):
         使用 AK，SK 生成鉴权签名（Access Token）
         :return: access_token，或是None(如果错误)
         """
+        API_KEY = settings.ERNIE_API_KEY
+        SECRET_KEY = settings.ERNIE_API_SECRET
         url = "https://aip.baidubce.com/oauth/2.0/token"
         params = {
             "grant_type": "client_credentials",
@@ -52,3 +52,6 @@ class Ernie(LLM):
             "client_secret": SECRET_KEY,
         }
         return str(requests.post(url, params=params).json().get("access_token"))
+
+def get_ernie():
+    return Ernie()

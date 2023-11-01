@@ -10,9 +10,7 @@ from langchain.llms.base import LLM
 
 from textcraft.core.settings import settings
 
-dashscope.api_key = settings.QWEN_API_KEY
 set_llm_cache(InMemoryCache())
-result_list = []
 
 
 class Qwen(LLM):
@@ -27,14 +25,16 @@ class Qwen(LLM):
         run_manager: Optional[CallbackManagerForLLMRun] = None,
         **kwargs: Any,
     ) -> str:
-        content = self._call_prompt(prompt)
+        temperature=settings.TEMPERATURE
+        content = self._call_prompt(prompt, temperature=temperature)
         return content
 
-    def _call_prompt(self, prompt):
-        print("====_call_prompt====" + prompt)
-        response = Generation.call(model="qwen-turbo", prompt=prompt)
+    def _call_prompt(self, prompt, **kwargs: Any):
+        dashscope.api_key = settings.QWEN_API_KEY
+        # print("====_call_prompt====" + prompt)
+        response = Generation.call(model="qwen-turbo", prompt=prompt, **kwargs)
         if response.status_code == HTTPStatus.OK:
-            print(response)
+            # print(response)
             if hasattr(response, "output"):
                 output = response.output
                 return output["text"]
@@ -48,3 +48,6 @@ class Qwen(LLM):
                     response.message,
                 )
             )
+     
+def get_qwen():
+    return Qwen()       

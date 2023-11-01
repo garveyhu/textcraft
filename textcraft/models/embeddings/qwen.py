@@ -7,8 +7,6 @@ from langchain.embeddings.base import Embeddings
 
 from textcraft.core.settings import settings
 
-dashscope.api_key = settings.QWEN_API_KEY
-
 
 class QwenEmbedding(Embeddings):
     def embed_documents(self, texts: List[str]) -> List[List[float]]:
@@ -20,6 +18,7 @@ class QwenEmbedding(Embeddings):
         return self.embed_with_str(text, 1)
 
     def embed_with_str(self, text, type):
+        dashscope.api_key = settings.QWEN_API_KEY
         # print(type)
         resp = TextEmbedding.call(
             model=TextEmbedding.Models.text_embedding_v1, input=text
@@ -41,3 +40,6 @@ class QwenEmbedding(Embeddings):
                     return list[0]["embedding"]
         else:
             return resp
+
+def get_qwen():
+    return QwenEmbedding()

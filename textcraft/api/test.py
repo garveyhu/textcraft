@@ -7,4 +7,4 @@ test_router = APIRouter()
 
 @test_router.get("/default_model")
 async def get_config():
-    return settings.DEFAULT_MODEL
+    return settings.DEFAULT_LLM
