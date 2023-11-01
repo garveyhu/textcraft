@@ -1,4 +1,4 @@
-from dotenv import set_key, dotenv_values
+from dotenv import dotenv_values, set_key
 from fastapi import APIRouter, HTTPException
 
 from textcraft.core.settings import env_file, refresh_settings, settings
@@ -18,12 +18,15 @@ async def update_config(config_param: dict):
     success = set_key(env_file, key, value)
 
     if not success:
-        raise HTTPException(status_code=404, detail=f"Key '{key}' not found in .env file.")
+        raise HTTPException(
+            status_code=404, detail=f"Key '{key}' not found in .env file."
+        )
 
     # 刷新配置
     refresh_settings()
 
     return "Configuration updated successfully."
+
 
 @config_router.get("/env/list")
 async def env_list():
