@@ -1,8 +1,8 @@
+from textcraft.models.llms.llm_creator import LLMCreator
 from textcraft.summarize.summarize import Summarizer
-from textcraft.models.llms.openai import get_openai
 
 
 class OpenAISummarizer(Summarizer):
     def __init__(self):
-        llm = get_openai()
+        llm = LLMCreator.create_llm("openai")
         super().__init__(llm)

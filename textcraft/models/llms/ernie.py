@@ -32,7 +32,12 @@ class Ernie(LLM):
             "https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/eb-instant?access_token="
             + self._get_access_token()
         )
-        payload = json.dumps({"messages": [{"role": "user", "content": prompt}], "temperature": settings.TEMPERATURE})
+        payload = json.dumps(
+            {
+                "messages": [{"role": "user", "content": prompt}],
+                "temperature": settings.TEMPERATURE,
+            }
+        )
         headers = {"Content-Type": "application/json"}
         response = requests.request("POST", url, headers=headers, data=payload)
         print("=======>" + response.text)
@@ -52,6 +57,3 @@ class Ernie(LLM):
             "client_secret": SECRET_KEY,
         }
         return str(requests.post(url, params=params).json().get("access_token"))
-
-def get_ernie():
-    return Ernie()

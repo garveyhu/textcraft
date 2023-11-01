@@ -32,7 +32,7 @@ class Settings(BaseSettings):
 
     # CONFIG
     TEMPERATURE: float = 0.5
-    
+
     # COMPLEX
     ASSEMBLYAI_API_KEY: str = None
     BEARLYAI_API_KEY: str = None

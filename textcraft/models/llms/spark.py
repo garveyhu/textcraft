@@ -171,7 +171,3 @@ class Spark(LLM):
         """
         _param_dict = {"url": self.gpt_url}
         return _param_dict
-
-
-def get_spark():
-    return Spark()

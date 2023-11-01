@@ -50,6 +50,3 @@ class Baichuan(LLM):
         """
         _param_dict = {"url": self.url}
         return _param_dict
-
-def get_baichuan():
-    return Baichuan()

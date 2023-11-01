@@ -25,14 +25,15 @@ class Qwen(LLM):
         run_manager: Optional[CallbackManagerForLLMRun] = None,
         **kwargs: Any,
     ) -> str:
-        temperature=settings.TEMPERATURE
-        content = self._call_prompt(prompt, temperature=temperature)
+        content = self._call_prompt(prompt, **kwargs)
         return content
 
     def _call_prompt(self, prompt, **kwargs: Any):
+        temperature = settings.TEMPERATURE
         dashscope.api_key = settings.QWEN_API_KEY
-        # print("====_call_prompt====" + prompt)
-        response = Generation.call(model="qwen-turbo", prompt=prompt, **kwargs)
+        response = Generation.call(
+            model="qwen-turbo", prompt=prompt, temperature=temperature, **kwargs
+        )
         if response.status_code == HTTPStatus.OK:
             # print(response)
             if hasattr(response, "output"):
@@ -48,6 +49,3 @@ class Qwen(LLM):
                     response.message,
                 )
             )
-     
-def get_qwen():
-    return Qwen()       

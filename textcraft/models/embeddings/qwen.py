@@ -40,6 +40,3 @@ class QwenEmbedding(Embeddings):
                     return list[0]["embedding"]
         else:
             return resp
-
-def get_qwen():
-    return QwenEmbedding()
