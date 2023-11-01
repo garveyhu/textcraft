@@ -1,14 +1,12 @@
-from pathlib import Path
-
+from dotenv import set_key, dotenv_values
 from fastapi import APIRouter, HTTPException
 
-from textcraft.core.settings import refresh_settings, settings
+from textcraft.core.settings import env_file, refresh_settings, settings
 
 config_router = APIRouter()
-env_file_path = Path(__file__).parent.parent.parent / ".env"
 
 
-@config_router.post("/update")
+@config_router.post("/env/update")
 async def update_config(config_param: dict):
     key = config_param.get("key")
     value = config_param.get("value")
@@ -16,45 +14,29 @@ async def update_config(config_param: dict):
     if key is None:
         raise HTTPException(status_code=400, detail="Key is required in the request.")
 
-    with open(env_file_path, "r", encoding="utf-8") as env_file:
-        lines = env_file.readlines()
+    # 更新配置
+    success = set_key(env_file, key, value)
 
-    updated_lines = []
-    key_found = False
-    for line in lines:
-        if line.strip().startswith(key + "="):
-            updated_lines.append(f"{key}={value}\n")
-            key_found = True
-        else:
-            updated_lines.append(line)
+    if not success:
+        raise HTTPException(status_code=404, detail=f"Key '{key}' not found in .env file.")
 
-    if not key_found:
-        raise HTTPException(
-            status_code=404, detail=f"Key '{key}' not found in .env file."
-        )
-
-    with open(env_file_path, "w", encoding="utf-8") as env_file:
-        env_file.writelines(updated_lines)
-
+    # 刷新配置
     refresh_settings()
 
     return "Configuration updated successfully."
 
-
-@config_router.get("/list/env")
+@config_router.get("/env/list")
 async def env_list():
     config_list = []
-    with open(env_file_path, "r", encoding="utf-8") as env_file:
-        for line in env_file:
-            if line.strip() and not line.strip().startswith("#"):
-                key, value = line.strip().split("=", 1)
-                value = value.strip('"')
-                config_list.append({"key": key, "value": value})
+    env_values = dotenv_values(env_file)
+
+    for key, value in env_values.items():
+        config_list.append({"key": key, "value": value})
 
     return config_list
 
 
-@config_router.get("/list/settings")
+@config_router.get("/settings/list")
 async def settings_list():
     config_list = []
     for key, value in settings:
