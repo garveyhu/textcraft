@@ -35,7 +35,7 @@ class Ernie(LLM):
         payload = json.dumps(
             {
                 "messages": [{"role": "user", "content": prompt}],
-                "temperature": settings.TEMPERATURE,
+                "temperature": float(settings.TEMPERATURE),
             }
         )
         headers = {"Content-Type": "application/json"}

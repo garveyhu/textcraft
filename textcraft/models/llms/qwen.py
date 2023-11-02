@@ -32,7 +32,7 @@ class Qwen(LLM):
         temperature = settings.TEMPERATURE
         dashscope.api_key = settings.QWEN_API_KEY
         response = Generation.call(
-            model="qwen-turbo", prompt=prompt, temperature=temperature, **kwargs
+            model="qwen-turbo", prompt=prompt, temperature=float(temperature), **kwargs
         )
         if response.status_code == HTTPStatus.OK:
             # print(response)

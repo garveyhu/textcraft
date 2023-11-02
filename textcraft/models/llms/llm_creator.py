@@ -25,7 +25,8 @@ class LLMCreator:
 
         if llm_class == OpenAI:
             return OpenAI(
-                openai_api_key=settings.OPENAI_API_KEY, temperature=settings.TEMPERATURE
+                openai_api_key=settings.OPENAI_API_KEY,
+                temperature=float(settings.TEMPERATURE),
             )
 
         return llm_class(**kwargs)

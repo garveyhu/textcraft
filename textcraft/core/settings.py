@@ -31,7 +31,7 @@ class Settings(BaseSettings):
     PINECONE_API_KEY: str = None
 
     # CONFIG
-    TEMPERATURE: float = 0.5
+    TEMPERATURE: str = "0.5"
 
     # COMPLEX
     ASSEMBLYAI_API_KEY: str = None

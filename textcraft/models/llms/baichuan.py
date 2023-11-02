@@ -29,7 +29,7 @@ class Baichuan(LLM):
         return "baichuan"
 
     def _post(self, prompt):
-        temperature = settings.TEMPERATURE
+        temperature = float(settings.TEMPERATURE)
         param_dict = {"prompt": prompt}
         response = requests.post(url=self.url, json=param_dict)
         content = ""

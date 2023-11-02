@@ -151,7 +151,7 @@ class Spark(LLM):
         )
         ws.question = prompt
         temperature = settings.TEMPERATURE
-        setattr(ws, "temperature", temperature)
+        setattr(ws, "temperature", float(temperature))
         setattr(ws, "max_tokens", self.max_tokens)
         ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE})
         return ws.content if hasattr(ws, "content") else ""
