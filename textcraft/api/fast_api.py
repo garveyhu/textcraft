@@ -10,7 +10,7 @@ app = FastAPI(title="TextCraft API", version="0.0.2")
 
 app.include_router(test_router, prefix="/test", tags=["test"])
 app.include_router(config_router, prefix="/config", tags=["config"])
-app.include_router(complex_router, prefix="/complex", tags=["complex"])
+app.include_router(complex_router, tags=["complex"])
 langserve_router(app)
 
 
