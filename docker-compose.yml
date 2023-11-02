@@ -2,8 +2,7 @@ version: '3'
 services:
   textcraft:
     build: .
-    volumes:
-      - /home/Archer/GitHub/textcraft/.env:/usr/src/app/.env
+    container_name: textcraft
     ports:
       - "8000:8000"
       - "7860:7860"
@@ -15,3 +14,29 @@ services:
       - all_proxy=socks5://127.0.0.1:7890
     env_file:
       - .env
+    volumes:
+      - ./.env:/usr/src/app/.env
+
+  redis:
+    image: redis:6-alpine
+    container_name: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - /apps/redis/data:/data
+      - /apps/redis/conf/redis.conf:/usr/local/etc/redis/redis.conf
+      - /apps/redis/logs:/logs
+
+  mongo:
+    image: mongo:6
+    container_name: mongodb
+    ports:
+      - 27017:27017
+    volumes:
+      - /apps/mongodb/data:/data/db
+      - /apps/mongodb/conf/mongod.conf:/etc/mongod.conf
+      - /apps/mongodb/logs:/data/logs
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: archer
+      MONGO_INITDB_ROOT_PASSWORD: 030317
+    command: --auth
