@@ -25,6 +25,7 @@ result_list = []
 
 
 def _construct_query(prompt, temperature, max_tokens):
+    SPARK_APPID = settings.SPARK_APPID
     data = {
         "header": {"app_id": SPARK_APPID, "uid": "1234"},
         "parameter": {
@@ -110,7 +111,6 @@ class Spark(LLM):
         Returns:
         str: The URL with authorization headers.
         """
-        SPARK_APPID = settings.SPARK_APPID
         SPARK_API_KEY = settings.SPARK_API_KEY
         SPARK_API_SECRET = settings.SPARK_API_SECRET
         now = datetime.now()
