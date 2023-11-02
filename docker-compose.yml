@@ -3,7 +3,7 @@ services:
   textcraft:
     build: .
     volumes:
-      - /home/Archer/GitHub/textcraft.env:/usr/src/app/.env
+      - /home/Archer/GitHub/textcraft/.env:/usr/src/app/.env
     ports:
       - "8000:8000"
       - "7860:7860"
