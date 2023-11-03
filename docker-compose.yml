@@ -28,6 +28,8 @@ services:
       - /apps/redis/data:/data
       - /apps/redis/conf/redis.conf:/usr/local/etc/redis/redis.conf
       - /apps/redis/logs:/logs
+    command:
+      - /usr/local/etc/redis/redis.conf
 
   mongo:
     image: mongo:7
