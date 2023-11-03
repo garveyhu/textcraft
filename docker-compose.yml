@@ -40,6 +40,6 @@ services:
       - /apps/mongodb/logs:/data/logs
     environment:
       - TZ=Asia/Shanghai
-      - MONGO_INITDB_ROOT_USERNAME=archer
-      - MONGO_INITDB_ROOT_PASSWORD=030317
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin
     command: --auth
