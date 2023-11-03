@@ -34,9 +34,9 @@ services:
     container_name: mongodb
     ports:
       - 27017:27017
+    environment:
+      - TZ=Asia/Shanghai
     volumes:
       - /apps/mongodb/data:/data/db
       - /apps/mongodb/conf/mongod.conf:/etc/mongod.conf
       - /apps/mongodb/logs:/data/logs
-    environment:
-      - TZ=Asia/Shanghai
