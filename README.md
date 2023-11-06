@@ -9,6 +9,7 @@
 1. 配置环境变量
 
    复制.env.example修改文件名为.env，添加你的系统设置到.env文件
+
    复制config.json.example修改文件名为config.json，添加你的用户设置到config.json文件
 
 2. 启动项目
