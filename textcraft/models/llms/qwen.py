@@ -8,7 +8,7 @@ from langchain.callbacks.manager import CallbackManagerForLLMRun
 from langchain.globals import set_llm_cache
 from langchain.llms.base import LLM
 
-from textcraft.core.settings import settings
+from textcraft.core.user_config import get_config
 
 set_llm_cache(InMemoryCache())
 
@@ -29,8 +29,8 @@ class Qwen(LLM):
         return content
 
     def _call_prompt(self, prompt, **kwargs: Any):
-        temperature = settings.TEMPERATURE
-        dashscope.api_key = settings.QWEN_API_KEY
+        temperature = get_config("settings.config.TEMPERATURE")
+        dashscope.api_key = get_config("settings.models.QWEN_API_KEY")
         response = Generation.call(
             model="qwen-turbo", prompt=prompt, temperature=float(temperature), **kwargs
         )

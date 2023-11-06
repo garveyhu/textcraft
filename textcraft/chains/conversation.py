@@ -6,10 +6,7 @@ from langchain.memory import ConversationBufferWindowMemory
 
 from textcraft.models.llms.llm_creator import LLMCreator
 
-llm = LLMCreator.create_llm()
-
-memory = ConversationBufferWindowMemory(k=3)  # k=1,意味着只能记住最后1轮对话内容
-conversation = ConversationChain(llm=llm, verbose=True, memory=memory)
+memory = ConversationBufferWindowMemory(k=3)
 
 
 def output_response(response: str) -> None:
@@ -27,6 +24,8 @@ def output_response(response: str) -> None:
 
 class Conversation:
     def chatForText(self, text):
+        llm = LLMCreator.create_llm()
+        conversation = ConversationChain(llm=llm, verbose=True, memory=memory)
         result = conversation.run(text)
         return result
 

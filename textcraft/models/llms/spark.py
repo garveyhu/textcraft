@@ -11,23 +11,23 @@ from time import mktime
 from typing import Any, List, Mapping, Optional
 from urllib.parse import urlencode, urlparse
 from wsgiref.handlers import format_date_time
+from regex import F
 
 import websocket
 from langchain.cache import InMemoryCache
 from langchain.globals import set_llm_cache
 from langchain.llms.base import LLM
 
-from textcraft.core.settings import settings
+from textcraft.core.user_config import get_config
 
 logging.basicConfig(level=logging.INFO)
 set_llm_cache(InMemoryCache())
 result_list = []
 
 
-def _construct_query(prompt, temperature, max_tokens):
-    SPARK_APPID = settings.SPARK_APPID
+def _construct_query(prompt, temperature, max_tokens, appid):
     data = {
-        "header": {"app_id": SPARK_APPID, "uid": "1234"},
+        "header": {"app_id": appid, "uid": "1234"},
         "parameter": {
             "chat": {
                 "domain": "generalv2",
@@ -44,7 +44,7 @@ def _construct_query(prompt, temperature, max_tokens):
 def _run(ws, *args):
     data = json.dumps(
         _construct_query(
-            prompt=ws.question, temperature=ws.temperature, max_tokens=ws.max_tokens
+            prompt=ws.question, temperature=ws.temperature, max_tokens=ws.max_tokens, appid=ws.appid
         )
     )
     print(data)
@@ -92,16 +92,14 @@ class Spark(LLM):
     _identifying_params 返回模型描述信息，通常返回一个字典，字典中包括模型的主要参数
     """
 
-    gpt_url = "ws://spark-api.xf-yun.com/v2.1/chat"  # spark官方模型提供api接口
-    host = urlparse(gpt_url).netloc  # host目标机器解析
-    path = urlparse(gpt_url).path  # 路径目标解析
+    gpt_url = "ws://spark-api.xf-yun.com/v2.1/chat"
+    host = urlparse(gpt_url).netloc
+    path = urlparse(gpt_url).path
     max_tokens = 1024
 
-    # ws = websocket.WebSocketApp(url='')
 
     @property
     def _llm_type(self) -> str:
-        # 模型简介
         return "Spark"
 
     def _get_url(self):
@@ -111,8 +109,8 @@ class Spark(LLM):
         Returns:
         str: The URL with authorization headers.
         """
-        SPARK_API_KEY = settings.SPARK_API_KEY
-        SPARK_API_SECRET = settings.SPARK_API_SECRET
+        SPARK_API_KEY = get_config("settings.models.SPARK.SPARK_API_KEY")
+        SPARK_API_SECRET = get_config("settings.models.SPARK.SPARK_API_SECRET")
         now = datetime.now()
         date = format_date_time(mktime(now.timetuple()))
 
@@ -139,7 +137,6 @@ class Spark(LLM):
         return url
 
     def _post(self, prompt):
-        # 模型请求响应
         websocket.enableTrace(False)
         wsUrl = self._get_url()
         ws = websocket.WebSocketApp(
@@ -150,18 +147,18 @@ class Spark(LLM):
             on_open=on_open,
         )
         ws.question = prompt
-        temperature = settings.TEMPERATURE
-        setattr(ws, "temperature", float(temperature))
+        temperature = get_config("settings.config.TEMPERATURE")
+        SPARK_APPID = get_config("settings.models.SPARK.SPARK_APPID")
+        setattr(ws, "temperature", temperature)
+        setattr(ws, "appid", SPARK_APPID)
         setattr(ws, "max_tokens", self.max_tokens)
         ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE})
         return ws.content if hasattr(ws, "content") else ""
 
     def _call(self, prompt: str, stop: Optional[List[str]] = None) -> str:
-        # 启动关键的函数
         content = self._post(prompt)
         print("======content======")
         print(content)
-        # content = "这是一个测试"
         return content
 
     @property

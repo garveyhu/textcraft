@@ -7,8 +7,7 @@ from langchain.callbacks.manager import CallbackManagerForLLMRun
 from langchain.globals import set_llm_cache
 from langchain.llms.base import LLM
 
-from textcraft.core.settings import settings
-
+from textcraft.core.user_config import get_config
 set_llm_cache(InMemoryCache())
 
 
@@ -35,7 +34,7 @@ class Ernie(LLM):
         payload = json.dumps(
             {
                 "messages": [{"role": "user", "content": prompt}],
-                "temperature": float(settings.TEMPERATURE),
+                "temperature": float(get_config("settings.config.TEMPERATURE")),
             }
         )
         headers = {"Content-Type": "application/json"}
@@ -48,8 +47,8 @@ class Ernie(LLM):
         使用 AK，SK 生成鉴权签名（Access Token）
         :return: access_token，或是None(如果错误)
         """
-        API_KEY = settings.ERNIE_API_KEY
-        SECRET_KEY = settings.ERNIE_API_SECRET
+        API_KEY = get_config("settings.models.ERNIE.ERNIE_API_KEY")
+        SECRET_KEY = get_config("settings.models.ERNIE.ERNIE_API_SECRET")
         url = "https://aip.baidubce.com/oauth/2.0/token"
         params = {
             "grant_type": "client_credentials",
