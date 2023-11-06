@@ -1,0 +1,45 @@
+{
+    "user": {
+        "id": "",
+        "name": "",
+        "email": ""
+    },
+    "settings": {
+        "langchain": {
+            "LANGCHAIN_TRACING_V2": true,
+            "LANGCHAIN_ENDPOINT": "",
+            "LANGCHAIN_API_KEY": "",
+            "LANGCHAIN_PROJECT": ""
+        },
+        "models": {
+            "OPENAI_API_KEY": "",
+            "HUGGINGFACEHUB_API_TOKEN": "",
+            "SPARK": {
+                "SPARK_APPID": "",
+                "SPARK_API_KEY": "",
+                "SPARK_API_SECRET": ""
+            },
+            "ERNIE": {
+                "ERNIE_API_KEY": "",
+                "ERNIE_API_SECRET": ""
+            },
+            "QWEN_API_KEY": ""
+        },
+        "memory": {
+            "PINECONE": {
+                "PINECONE_ENV": "",
+                "PINECONE_API_KEY": ""
+            }
+        },
+        "config": {
+            "TEMPERATURE": 0.5,
+            "DEFAULT_LLM": "",
+            "DEFAULT_EMBEDDING": "",
+            "DEFAULT_VECTOR_STORE": ""
+        },
+        "complex": {
+            "ASSEMBLYAI_API_KEY": "",
+            "BEARLYAI_API_KEY": ""
+        }
+    }
+}
