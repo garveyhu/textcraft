@@ -18,6 +18,8 @@ class EmbeddingCreator:
             raise ValueError(f"No embedding class found for type {embedding_type}")
 
         if embedding_class == OpenAIEmbeddings:
-            return OpenAIEmbeddings(openai_api_key=get_config("settings.models.OPENAI_API_KEY"))
+            return OpenAIEmbeddings(
+                openai_api_key=get_config("settings.models.OPENAI_API_KEY")
+            )
 
         return embedding_class(**kwargs)

@@ -11,12 +11,12 @@ from time import mktime
 from typing import Any, List, Mapping, Optional
 from urllib.parse import urlencode, urlparse
 from wsgiref.handlers import format_date_time
-from regex import F
 
 import websocket
 from langchain.cache import InMemoryCache
 from langchain.globals import set_llm_cache
 from langchain.llms.base import LLM
+from regex import F
 
 from textcraft.core.user_config import get_config
 
@@ -44,7 +44,10 @@ def _construct_query(prompt, temperature, max_tokens, appid):
 def _run(ws, *args):
     data = json.dumps(
         _construct_query(
-            prompt=ws.question, temperature=ws.temperature, max_tokens=ws.max_tokens, appid=ws.appid
+            prompt=ws.question,
+            temperature=ws.temperature,
+            max_tokens=ws.max_tokens,
+            appid=ws.appid,
         )
     )
     print(data)
@@ -96,7 +99,6 @@ class Spark(LLM):
     host = urlparse(gpt_url).netloc
     path = urlparse(gpt_url).path
     max_tokens = 1024
-
 
     @property
     def _llm_type(self) -> str:

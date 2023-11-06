@@ -9,7 +9,7 @@ class Settings(BaseSettings):
     MONGODB_URL: str = None
     MONGODB_DB: str = None
     MONGODB_COLLECTION: str = None
-    
+
     REDIS_HOST: str = None
     REDIS_PORT: str = None
     REDIS_DB: str = None

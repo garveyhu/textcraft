@@ -31,24 +31,25 @@ class MongoDBManager:
 
     def get_config(self, user_id):
         filter_query = {"user.id": user_id}
-        config_data = json_util.loads(json_util.dumps(self.collection.find_one(filter_query)))
+        config_data = json_util.loads(
+            json_util.dumps(self.collection.find_one(filter_query))
+        )
         if "_id" in config_data:
-                del config_data["_id"]
-                
+            del config_data["_id"]
+
         return config_data
-    
+
     def all_config(self):
         all_config_data = list(self.collection.find())
         json_config_data = []
-        
+
         if all_config_data:
             for config_data in all_config_data:
                 if "_id" in config_data:
                     del config_data["_id"]
                 json_config_data.append(json_util.loads(json_util.dumps(config_data)))
-                
-        return json_config_data
 
+        return json_config_data
 
     def close_connection(self):
         self.client.close()

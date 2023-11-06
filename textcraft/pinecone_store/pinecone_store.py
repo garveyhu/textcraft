@@ -10,8 +10,6 @@ from textcraft.core.user_config import get_config
 from textcraft.models.embeddings.embedding_creator import EmbeddingCreator
 
 
-
-
 def store_document(document) -> Pinecone:
     PINECONE_API_KEY = get_config("settings.memory.pinecone.PINECONE_API_KEY")
     PINECONE_ENV = get_config("settings.memory.pinecone.PINECONE_ENV")

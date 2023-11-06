@@ -8,7 +8,6 @@ from langchain.tools import BaseTool
 from textcraft.core.user_config import get_config
 
 
-
 class LabelTool(BaseTool):
     name = "标签工具"
     description = "使用Ali的understanding给文本打上标签"
