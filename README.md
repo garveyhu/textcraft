@@ -22,6 +22,9 @@
 
 ## 🐳 Docker 部署
 
+- [配置Redis](https://garveys.notion.site/Docker-Compose-Redis-73141176df6440d8a9c4be0d0d5de3cf?pvs=4)
+- [配置MongoDB](https://garveys.notion.site/Docker-Compose-MongoDB-b16680405b824adb8a30db92c131a4e4?pvs=4)
+
 ```bash
 sudo docker-compose up -d
 ```
