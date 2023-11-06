@@ -8,6 +8,7 @@ license = "Apache-2.0"
 
 [tool.poetry.dependencies]
 python = "^3.10"
+bson = "*"
 dashscope = "*"
 fastapi = "*"
 gradio = "*"
@@ -16,8 +17,10 @@ langchain = "*"
 langserve = { version = "*", extras = ["all"] }
 openai = "*"
 pinecone-client = "*"
+pymongo = "3.11.4"
 python-dotenv = "*"
 python-multipart = "*"
+redis = "*"
 rich = "*"
 streamlit = "*"
 transformers = "*"
