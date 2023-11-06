@@ -2,7 +2,7 @@ from fastapi import APIRouter
 
 from textcraft.chains.conversation import Conversation
 
-test_router = APIRouter()
+test_router = APIRouter(prefix="/test", tags=["test"])
 
 
 @test_router.get("/conversation")

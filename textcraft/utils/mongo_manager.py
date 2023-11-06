@@ -1,5 +1,4 @@
 import json
-import re
 
 import pymongo
 from bson import json_util

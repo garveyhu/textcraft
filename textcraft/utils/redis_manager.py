@@ -1,7 +1,6 @@
 import json
 
 import redis
-from bson import json_util
 
 from textcraft.core.settings import settings
 from textcraft.utils.mongo_manager import MongoDBManager

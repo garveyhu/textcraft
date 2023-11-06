@@ -1,20 +1,18 @@
-import json
-
 import uvicorn
 from fastapi import FastAPI, HTTPException, Request
 
-from textcraft.api.complex import complex_router
 from textcraft.api.config import config_router
-from textcraft.api.langserve_api import langserve_router
+from textcraft.api.functions import function_router
+from textcraft.api.langserves import langserve_router
 from textcraft.api.test import test_router
 from textcraft.core.user_config import init_config
 from textcraft.utils.redis_manager import RedisManager
 
 app = FastAPI(title="TextCraft API", version="0.0.2")
 
-app.include_router(test_router, prefix="/test", tags=["test"])
-app.include_router(config_router, prefix="/config", tags=["config"])
-app.include_router(complex_router, tags=["complex"])
+app.include_router(config_router)
+app.include_router(test_router)
+app.include_router(function_router)
 langserve_router(app)
 
 

@@ -1,6 +1,6 @@
 from langchain.tools import BaseTool
 
-from textcraft.pinecone_store.pinecone_qa import vector_qa
+from textcraft.vectors.pinecone_qa import vector_qa
 
 
 class QATool(BaseTool):

@@ -1,6 +1,6 @@
 from langchain.tools import BaseTool
 
-from textcraft.pinecone_store.pinecone_store import similarity_search
+from textcraft.vectors.pinecone_store import similarity_search
 
 
 class SimilaritySearchTool(BaseTool):

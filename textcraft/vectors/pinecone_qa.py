@@ -2,18 +2,18 @@ import pinecone
 from langchain.chains import RetrievalQA
 from langchain.vectorstores.pinecone import Pinecone
 
-from textcraft.core.settings import settings
+from textcraft.core.user_config import get_config
 from textcraft.models.embeddings.embedding_creator import EmbeddingCreator
-from textcraft.models.llms.spark import Spark
+from textcraft.models.llms.llm_creator import LLMCreator
 
 
 def vector_qa(question: str) -> str:
-    PINECONE_API_KEY = settings.PINECONE_API_KEY
-    PINECONE_ENV = settings.PINECONE_ENV
+    PINECONE_API_KEY = get_config("settings.memory.PINECONE.PINECONE_API_KEY")
+    PINECONE_ENV = get_config("settings.memory.PINECONE.PINECONE_ENV")
 
     pinecone.init(api_key=PINECONE_API_KEY, environment=PINECONE_ENV)
     embeddings = EmbeddingCreator.create_embedding()
-    llm = Spark()
+    llm = LLMCreator.create_llm()
     docsearch = Pinecone.from_existing_index("langchain", embeddings)
     qa = RetrievalQA.from_chain_type(
         llm=llm,

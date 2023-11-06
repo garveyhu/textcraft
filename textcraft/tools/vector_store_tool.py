@@ -2,7 +2,7 @@ from typing import Dict, List, Union
 
 from langchain.tools import BaseTool
 
-from textcraft.pinecone_store.pinecone_store import store_paragraphs
+from textcraft.vectors.pinecone_store import store_paragraphs
 
 
 class VectorStoreTool(BaseTool):

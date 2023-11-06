@@ -3,6 +3,8 @@ from langchain.docstore.document import Document
 from langchain.prompts import PromptTemplate
 from langchain.text_splitter import CharacterTextSplitter
 
+from textcraft.models.llms.llm_creator import LLMCreator
+
 
 class Summarizer:
     """
@@ -10,8 +12,8 @@ class Summarizer:
     提炼文本标题
     """
 
-    def __init__(self, llm):
-        self.llm = llm
+    def __init__(self):
+        self.llm = LLMCreator.create_llm()
         self.text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
         self.prompt_template = """为以下内容取标题，标题字数简短控制10字之内:\n{text}\n标题:"""
         self.PROMPT = PromptTemplate(

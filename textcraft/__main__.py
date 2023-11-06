@@ -3,7 +3,7 @@ import threading
 
 import uvicorn
 
-from textcraft.api.fast_api import app
+from textcraft.api.main import app
 from textcraft.ui.gradio import iface
 
 
