@@ -6,7 +6,7 @@ from textcraft.core.user_config import get_config_dict
 from textcraft.utils.mongo_manager import MongoDBManager
 from textcraft.utils.redis_manager import RedisManager
 
-config_router = APIRouter(prefix="/settings", tags=["settings"])
+config_router = APIRouter(prefix="/settings", tags=["应用配置API"])
 
 
 @config_router.post("/system/update")

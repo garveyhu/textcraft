@@ -6,15 +6,15 @@ from fastapi.responses import JSONResponse
 from textcraft.vectors.pinecone_qa import vector_qa
 from textcraft.vectors.pinecone_store import similarity_search, store_paragraphs
 
-complex_router = APIRouter(prefix="/complex", tags=["complex"])
+complex_router = APIRouter(prefix="/complex", tags=["综合API"])
 
 
-@complex_router.get("/pinecone/qa")
+@complex_router.get("/pinecone/qa", description="向量问答")
 async def pinecone_qa(text: str):
     return vector_qa(text)
 
 
-@complex_router.post("/pinecone/store")
+@complex_router.post("/pinecone/store", description="向量存储")
 async def pinecone_store(paragraphs: List[Dict[str, Union[str, Dict[str, str]]]]):
     result = store_paragraphs(paragraphs)
     if result is None:
@@ -22,6 +22,6 @@ async def pinecone_store(paragraphs: List[Dict[str, Union[str, Dict[str, str]]]]
     return JSONResponse(content="success", status_code=200)
 
 
-@complex_router.get("/pinecone/similarity_search")
+@complex_router.get("/pinecone/similarity_search", description="文档检索")
 async def pinecone_similarity_search(text: str):
     return similarity_search(text)
