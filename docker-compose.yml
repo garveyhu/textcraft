@@ -51,6 +51,7 @@ services:
       - 9300:9300
     environment:
       - TZ=Asia/Shanghai
+      - ES_JAVA_OPTS=-Xms128m -Xmx128m
     volumes:
       - /apps/es/data:/usr/share/elasticsearch/data
       - /apps/es/conf/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
