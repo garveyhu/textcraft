@@ -55,7 +55,10 @@ services:
     volumes:
       - /apps/es/data:/usr/share/elasticsearch/data
       - /apps/es/conf/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - /apps/es/logs:/usr/share/elasticsearch/logs
       - /apps/es/plugins:/usr/share/elasticsearch/plugins
+    networks:
+      - es
 
   kibana:
     image: kibana:8.9.0
@@ -68,3 +71,11 @@ services:
       - elasticsearch
     volumes:
       - /apps/es/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml
+      - /apps/es/kibana/logs:/usr/share/kibana/logs
+    links:
+      - elasticsearch
+    networks:
+      - es
+    
+networks:
+  es:
