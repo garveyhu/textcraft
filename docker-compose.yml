@@ -53,7 +53,7 @@ services:
       - TZ=Asia/Shanghai
       - ES_JAVA_OPTS=-Xms2g -Xmx2g
     volumes:
-			- /apps/es/data:/usr/share/elasticsearch/data
+      - /apps/es/data:/usr/share/elasticsearch/data
       - /apps/es/conf/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
       - /apps/es/plugins:/usr/share/elasticsearch/plugins
 
