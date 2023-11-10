@@ -80,12 +80,12 @@ async def user_config_update(request: Request):
 
 
 @config_router.get("/user/list")
-async def user_config_list(user_id: str):
+async def user_config_list(app_id: str):
     mongo_manager = MongoDBManager()
     redis_manager = RedisManager()
 
-    mongo_config_list = mongo_manager.get_config(user_id)
-    redis_config_list = redis_manager.get_config(user_id)
+    mongo_config_list = mongo_manager.get_config(app_id)
+    redis_config_list = redis_manager.get_config(app_id)
 
     return {"mongo": mongo_config_list, "redis": redis_config_list}
 

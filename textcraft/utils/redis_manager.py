@@ -24,18 +24,18 @@ class RedisManager:
                 self.update_config(config_data)
 
     def update_config(self, config_data):
-        user_id = config_data["user"]["id"]
-        key = f"user:{user_id}"
+        app_id = config_data["app"]["id"]
+        key = f"app:{app_id}"
         result = self.client.set(key, json.dumps(config_data))
         return result
 
-    def delete_config(self, user_id):
-        key = f"user:{user_id}"
+    def delete_config(self, app_id):
+        key = f"app:{app_id}"
         result = self.client.delete(key)
         return result
 
-    def get_config(self, user_id):
-        key = f"user:{user_id}"
+    def get_config(self, app_id):
+        key = f"app:{app_id}"
         config_data = self.client.get(key)
         if config_data:
             return json.loads(config_data)
@@ -48,5 +48,5 @@ class RedisManager:
 
 if __name__ == "__main__":
     redis_manager = RedisManager()
-    # redis_manager.sync_configs_to_redis()
+    redis_manager.sync_configs_to_redis()
     # print(redis_manager.get_config("030317"))

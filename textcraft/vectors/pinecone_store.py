@@ -6,13 +6,12 @@ from langchain.document_loaders import TextLoader
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.vectorstores.pinecone import Pinecone
 
-from textcraft.core.user_config import get_config
+from textcraft.core.config import keys_pinecone
 from textcraft.models.embeddings.embedding_creator import EmbeddingCreator
 
 
 def store_document(document) -> Pinecone:
-    PINECONE_API_KEY = get_config("settings.memory.pinecone.PINECONE_API_KEY")
-    PINECONE_ENV = get_config("settings.memory.pinecone.PINECONE_ENV")
+    PINECONE_ENV, PINECONE_API_KEY = keys_pinecone()
 
     pinecone.init(api_key=PINECONE_API_KEY, environment=PINECONE_ENV)
     embeddings = EmbeddingCreator.create_embedding()
@@ -39,8 +38,7 @@ def store_document(document) -> Pinecone:
 def store_paragraphs(
     paragraphs: List[Dict[str, Union[str, Dict[str, str]]]]
 ) -> Pinecone:
-    PINECONE_API_KEY = get_config("settings.memory.pinecone.PINECONE_API_KEY")
-    PINECONE_ENV = get_config("settings.memory.pinecone.PINECONE_ENV")
+    PINECONE_ENV, PINECONE_API_KEY = keys_pinecone()
 
     pinecone.init(api_key=PINECONE_API_KEY, environment=PINECONE_ENV)
     embeddings = EmbeddingCreator.create_embedding()
@@ -61,8 +59,7 @@ def store_paragraphs(
 
 
 def similarity_search(query):
-    PINECONE_API_KEY = get_config("settings.memory.PINECONE.PINECONE_API_KEY")
-    PINECONE_ENV = get_config("settings.memory.PINECONE.PINECONE_ENV")
+    PINECONE_ENV, PINECONE_API_KEY = keys_pinecone()
 
     pinecone.init(api_key=PINECONE_API_KEY, environment=PINECONE_ENV)
     embeddings = EmbeddingCreator.create_embedding()

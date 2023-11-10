@@ -1,3 +1,5 @@
+from collections import defaultdict
+
 import uvicorn
 from fastapi import FastAPI, HTTPException, Request
 
@@ -19,15 +21,25 @@ langserve_router(app)
 @app.middleware("http")
 async def set_config(request: Request, call_next):
     user_id = request.headers.get("User-Id")
+    app_id = request.headers.get("App-Id")
+    dialog_id = request.headers.get("Dialog-Id")
+    
+    if app_id is None:
+        app_id = "0"
     if user_id is None:
-        user_id = "030317"
-        # raise HTTPException(status_code=400, detail="userId header is missing")
+        user_id = "0"
+    if dialog_id is None:
+        dialog_id = "0"
+        
     redis_manager = RedisManager()
-    json_data = redis_manager.get_config(user_id)
-    if json_data is None:
+    dic_data = redis_manager.get_config(app_id)
+    dic_data.setdefault("user", {}).update({"id": user_id})
+    dic_data.setdefault("dialog", {}).update({"id": dialog_id})
+    
+    if dic_data is None:
         raise HTTPException(status_code=404, detail="User config not found.")
 
-    init_config(json_data)
+    init_config(dic_data)
 
     response = await call_next(request)
     return response

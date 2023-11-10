@@ -16,21 +16,20 @@ import websocket
 from langchain.cache import InMemoryCache
 from langchain.globals import set_llm_cache
 from langchain.llms.base import LLM
-from regex import F
 
-from textcraft.core.user_config import get_config
+from textcraft.core.config import default_model, keys_spark, model_temperature
 
 logging.basicConfig(level=logging.INFO)
 set_llm_cache(InMemoryCache())
 result_list = []
 
 
-def _construct_query(prompt, temperature, max_tokens, appid):
+def _construct_query(prompt, temperature, max_tokens, appid, domain):
     data = {
         "header": {"app_id": appid, "uid": "1234"},
         "parameter": {
             "chat": {
-                "domain": "generalv2",
+                "domain": domain,
                 "random_threshold": temperature,
                 "max_tokens": max_tokens,
                 "auditing": "default",
@@ -48,6 +47,7 @@ def _run(ws, *args):
             temperature=ws.temperature,
             max_tokens=ws.max_tokens,
             appid=ws.appid,
+            domain=ws.domain,
         )
     )
     print(data)
@@ -95,52 +95,60 @@ class Spark(LLM):
     _identifying_params 返回模型描述信息，通常返回一个字典，字典中包括模型的主要参数
     """
 
-    gpt_url = "ws://spark-api.xf-yun.com/v2.1/chat"
-    host = urlparse(gpt_url).netloc
-    path = urlparse(gpt_url).path
+    modelDict = {
+        "spark-v2": "ws://spark-api.xf-yun.com/v2.1/chat",
+        "spark-v3": "ws://spark-api.xf-yun.com/v3.1/chat",
+    }
+    domainDict = {"spark-v2": "generalv2", "spark-v3": "generalv3"}
     max_tokens = 1024
 
     @property
     def _llm_type(self) -> str:
         return "Spark"
 
-    def _get_url(self):
+    def _get_url(self, api_key, api_secret):
+        modelName = default_model()
+        gpt_url = self.modelDict.get(modelName)
+        host = urlparse(gpt_url).netloc
+        path = urlparse(gpt_url).path
+
+        print(gpt_url)
+
         """
         Generates a URL with authorization headers for making a GET request to the Spark API.
 
         Returns:
         str: The URL with authorization headers.
         """
-        SPARK_API_KEY = get_config("settings.models.SPARK.SPARK_API_KEY")
-        SPARK_API_SECRET = get_config("settings.models.SPARK.SPARK_API_SECRET")
         now = datetime.now()
         date = format_date_time(mktime(now.timetuple()))
 
-        signature_origin = "host: " + self.host + "\n"
+        signature_origin = "host: " + host + "\n"
         signature_origin += "date: " + date + "\n"
-        signature_origin += "GET " + self.path + " HTTP/1.1"
+        signature_origin += "GET " + path + " HTTP/1.1"
 
         signature_sha = hmac.new(
-            SPARK_API_SECRET.encode("utf-8"),
+            api_secret.encode("utf-8"),
             signature_origin.encode("utf-8"),
             digestmod=hashlib.sha256,
         ).digest()
 
         signature_sha_base64 = base64.b64encode(signature_sha).decode(encoding="utf-8")
 
-        authorization_origin = f'api_key="{SPARK_API_KEY}", algorithm="hmac-sha256", headers="host date request-line", signature="{signature_sha_base64}"'
+        authorization_origin = f'api_key="{api_key}", algorithm="hmac-sha256", headers="host date request-line", signature="{signature_sha_base64}"'
 
         authorization = base64.b64encode(authorization_origin.encode("utf-8")).decode(
             encoding="utf-8"
         )
 
-        v = {"authorization": authorization, "date": date, "host": self.host}
-        url = self.gpt_url + "?" + urlencode(v)
+        v = {"authorization": authorization, "date": date, "host": host}
+        url = gpt_url + "?" + urlencode(v)
         return url
 
     def _post(self, prompt):
         websocket.enableTrace(False)
-        wsUrl = self._get_url()
+        SPARK_APPID, SPARK_API_KEY, SPARK_API_SECRET = keys_spark()
+        wsUrl = self._get_url(SPARK_API_KEY, SPARK_API_SECRET)
         ws = websocket.WebSocketApp(
             wsUrl,
             on_message=on_message,
@@ -149,11 +157,12 @@ class Spark(LLM):
             on_open=on_open,
         )
         ws.question = prompt
-        temperature = get_config("settings.config.TEMPERATURE")
-        SPARK_APPID = get_config("settings.models.SPARK.SPARK_APPID")
+        temperature = model_temperature()
+        domain = self.domainDict.get(default_model())
         setattr(ws, "temperature", temperature)
         setattr(ws, "appid", SPARK_APPID)
         setattr(ws, "max_tokens", self.max_tokens)
+        setattr(ws, "domain", domain)
         ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE})
         return ws.content if hasattr(ws, "content") else ""
 
@@ -168,5 +177,7 @@ class Spark(LLM):
         """
         Get the identifying parameters.
         """
-        _param_dict = {"url": self.gpt_url}
+        modelName = default_model()
+        gpt_url = self.modelDict.get(modelName)
+        _param_dict = {"url": gpt_url}
         return _param_dict

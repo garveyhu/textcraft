@@ -7,12 +7,17 @@ from langchain.callbacks.manager import CallbackManagerForLLMRun
 from langchain.globals import set_llm_cache
 from langchain.llms.base import LLM
 
-from textcraft.core.user_config import get_config
+from textcraft.core.config import default_model, keys_ernie, model_temperature
 
 set_llm_cache(InMemoryCache())
 
 
 class Ernie(LLM):
+    modelDict = {
+        "ERNIE-Bot-turbo": "https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/eb-instant",
+        "ERNIE-Bot-4.0": "https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/completions_pro",
+    }
+
     def _call(
         self,
         prompt: str,
@@ -28,14 +33,13 @@ class Ernie(LLM):
         return "Ernie"
 
     def _post(self, prompt):
-        url = (
-            "https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/eb-instant?access_token="
-            + self._get_access_token()
-        )
+        modelName = default_model()
+        modelUrl = self.modelDict.get(modelName)
+        url = modelUrl + "?access_token=" + self._get_access_token()
         payload = json.dumps(
             {
                 "messages": [{"role": "user", "content": prompt}],
-                "temperature": float(get_config("settings.config.TEMPERATURE")),
+                "temperature": model_temperature(),
             }
         )
         headers = {"Content-Type": "application/json"}
@@ -48,8 +52,7 @@ class Ernie(LLM):
         使用 AK，SK 生成鉴权签名（Access Token）
         :return: access_token，或是None(如果错误)
         """
-        API_KEY = get_config("settings.models.ERNIE.ERNIE_API_KEY")
-        SECRET_KEY = get_config("settings.models.ERNIE.ERNIE_API_SECRET")
+        API_KEY, SECRET_KEY = keys_ernie()
         url = "https://aip.baidubce.com/oauth/2.0/token"
         params = {
             "grant_type": "client_credentials",

@@ -17,19 +17,19 @@ class MongoDBManager:
         return result.inserted_id
 
     def update_config(self, config_data):
-        user_id = config_data["user"]["id"]
-        filter_query = {"user.id": user_id}
+        app_id = config_data["app"]["id"]
+        filter_query = {"app.id": app_id}
         update_data = {"$set": config_data}
         result = self.collection.update_one(filter_query, update_data)
         return result.modified_count
 
-    def delete_config(self, user_id):
-        filter_query = {"user.id": user_id}
+    def delete_config(self, app_id):
+        filter_query = {"app.id": app_id}
         result = self.collection.delete_one(filter_query)
         return result.deleted_count
 
-    def get_config(self, user_id):
-        filter_query = {"user.id": user_id}
+    def get_config(self, app_id):
+        filter_query = {"app.id": app_id}
         config_data = json_util.loads(
             json_util.dumps(self.collection.find_one(filter_query))
         )
@@ -62,7 +62,7 @@ class MongoDBManager:
 if __name__ == "__main__":
     collection = MongoDBManager()
     # print(collection.load_json())
-    # print(collection.insert_config(collection.load_json()))
+    print(collection.insert_config(collection.load_json()))
     # print(collection.update_config(collection.load_json()))
     # print(collection.delete_config("030317"))
     # print(collection.get_config("030317"))

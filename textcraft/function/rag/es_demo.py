@@ -4,8 +4,6 @@ from langchain.document_loaders import TextLoader
 from langchain.text_splitter import CharacterTextSplitter
 
 
-
-
 if __name__ == "__main__":
     loader = TextLoader("E:\\VSCode\\vscode-python\\AI\\textcraft\\docs\\zelda.txt", encoding="utf-8")
     documents = loader.load()

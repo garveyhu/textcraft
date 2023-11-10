@@ -1,21 +1,15 @@
 import gradio as gr
 
-from textcraft.pinecone_store.pinecone_qa import vector_qa
-from textcraft.summarize.openai_summarize import OpenAISummarizer
-from textcraft.summarize.spark_summarize import SparkSummarizer
+from textcraft.vectors.pinecone_qa import vector_qa
+from textcraft.function.summarize.summarizer import Summarizer
 
 
-def summarizer_router(file, long_text, file_spark, long_text_spark, question):
+def summarizer_router(file, long_text, question):
     if file:
         decoded_content = file.read().decode("utf-8")
-        summary = OpenAISummarizer().summarize_text(decoded_content)
+        summary = Summarizer().summarize_text(decoded_content)
     elif long_text:
-        summary = OpenAISummarizer().summarize_text(long_text)
-    elif file_spark:
-        decoded_content = file_spark.read().decode("utf-8")
-        summary = SparkSummarizer().summarize_text(decoded_content)
-    elif long_text_spark:
-        summary = SparkSummarizer().summarize_text(long_text_spark)
+        summary = Summarizer().summarize_text(long_text)
     elif question:
         summary = vector_qa(question)
     return summary

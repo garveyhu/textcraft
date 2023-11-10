@@ -5,7 +5,7 @@ import dashscope
 from dashscope import TextEmbedding
 from langchain.embeddings.base import Embeddings
 
-from textcraft.core.user_config import get_config
+from textcraft.core.config import keys_qwen
 
 
 class QwenEmbedding(Embeddings):
@@ -18,7 +18,7 @@ class QwenEmbedding(Embeddings):
         return self.embed_with_str(text, 1)
 
     def embed_with_str(self, text, type):
-        dashscope.api_key = get_config("settings.models.QWEN_API_KEY")
+        dashscope.api_key = keys_qwen()
         # print(type)
         resp = TextEmbedding.call(
             model=TextEmbedding.Models.text_embedding_v1, input=text

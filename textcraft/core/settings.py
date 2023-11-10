@@ -5,7 +5,6 @@ from pydantic import BaseSettings
 
 
 class Settings(BaseSettings):
-    # CONFIG
     MONGODB_URL: str = None
     MONGODB_DB: str = None
     MONGODB_COLLECTION: str = None
@@ -14,6 +13,13 @@ class Settings(BaseSettings):
     REDIS_PORT: str = None
     REDIS_DB: str = None
     REDIS_PASSWORD: str = None
+    
+    ES_URL: str = None
+    
+    LANGCHAIN_TRACING_V2: bool = None
+    LANGCHAIN_ENDPOINT: str = None
+    LANGCHAIN_API_KEY: str = None
+    LANGCHAIN_PROJECT: str = None
 
 
 def refresh_settings():
