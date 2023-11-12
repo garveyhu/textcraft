@@ -1,5 +1,3 @@
-from collections import defaultdict
-
 import uvicorn
 from fastapi import FastAPI, HTTPException, Request
 
