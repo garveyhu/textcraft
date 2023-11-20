@@ -5,7 +5,7 @@ import dashscope
 from dashscope import Understanding
 from langchain.tools import BaseTool
 
-from textcraft.core.user_config import get_config
+from textcraft.core.config import keys_qwen
 
 
 class LabelTool(BaseTool):
@@ -27,7 +27,7 @@ class LabelTool(BaseTool):
         return self.get_label(text, self.labels)
 
     def get_label(self, text, labels):
-        dashscope.api_key = get_config("settings.models.QWEN_API_KEY")
+        dashscope.api_key = keys_qwen()
         response = Understanding.call(
             model="opennlu-v1",
             sentence=text,

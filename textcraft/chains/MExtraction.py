@@ -13,7 +13,7 @@ from langchain.output_parsers.openai_functions import (
 )
 from langchain.prompts import ChatPromptTemplate
 from langchain.pydantic_v1 import BaseModel
-from langchain.schema import BasePromptTemplate, BaseOutputParser
+from langchain.schema import BaseOutputParser, BasePromptTemplate
 from langchain.schema.language_model import BaseLanguageModel
 from langchain.schema.output_parser import T
 
@@ -45,12 +45,11 @@ Passage:
 
 
 def create_extraction_chain(
-        schema: dict,
-        llm: BaseLanguageModel,
-        prompt: Optional[BasePromptTemplate] = None,
-        output_parser: Optional[BaseOutputParser] = None,
-        verbose: bool = False,
-
+    schema: dict,
+    llm: BaseLanguageModel,
+    prompt: Optional[BasePromptTemplate] = None,
+    output_parser: Optional[BaseOutputParser] = None,
+    verbose: bool = False,
 ) -> Chain:
     """Creates a chain that extracts information from a passage.
 
@@ -90,10 +89,10 @@ def create_extraction_chain(
 
 
 def create_extraction_chain_pydantic(
-        pydantic_schema: Any,
-        llm: BaseLanguageModel,
-        prompt: Optional[BasePromptTemplate] = None,
-        verbose: bool = False,
+    pydantic_schema: Any,
+    llm: BaseLanguageModel,
+    prompt: Optional[BasePromptTemplate] = None,
+    verbose: bool = False,
 ) -> Chain:
     """Creates a chain that extracts information from a passage using pydantic schema.
 

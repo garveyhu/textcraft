@@ -1,8 +1,6 @@
-from io import StringIO
+from fastapi import APIRouter, Body
 
-from fastapi import APIRouter, File, UploadFile
-from fastapi.responses import JSONResponse
-
+from textcraft.api.schema.chats import ChatList
 from textcraft.function.summarize.summarizer import Summarizer
 from textcraft.tools.classify_tool import ClassifyTool
 from textcraft.tools.label_tool import LabelTool
@@ -10,20 +8,25 @@ from textcraft.tools.label_tool import LabelTool
 summarize_router = APIRouter(prefix="/summarize", tags=["总结API"])
 
 
-@summarize_router.post("/text", description="总结文字")
-async def summarize_text(long_text: str):
-    return Summarizer().summarize_text(long_text)
+"""摘要总结"""
 
 
-@summarize_router.post("/file", description="总结文件")
-async def summarize_file(file: UploadFile = File(...)):
-    content = await file.read()
-    try:
-        decoded_content = content.decode("utf-8")
-    except UnicodeDecodeError:
-        return JSONResponse(content={"error": "Invalid file encoding"}, status_code=400)
-    file_like_object = StringIO(decoded_content)
-    return Summarizer().summarize_file(file_like_object)
+@summarize_router.post("/text", description="总结文本")
+async def summarize_text(text: str = Body(..., embed=True)):
+    return Summarizer().summarize_text(text)
+
+
+@summarize_router.post("/conversation", description="总结对话")
+async def summarize_conversation(chats: ChatList):
+    return Summarizer().summarize_conversation_chatlist(chats)
+
+
+@summarize_router.get("/conversation/shot", description="总结会话指定size对话")
+async def summarize_conversation_dialog_shot(size: int = 10):
+    return Summarizer().summarize_conversation_dialog_shot(size)
+
+
+"""OpenNLU"""
 
 
 @summarize_router.get("/classify", description="段落分类")

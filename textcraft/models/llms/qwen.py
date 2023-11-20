@@ -8,7 +8,7 @@ from langchain.callbacks.manager import CallbackManagerForLLMRun
 from langchain.globals import set_llm_cache
 from langchain.llms.base import LLM
 
-from textcraft.core.user_config import get_config
+from textcraft.core.config import dialog_model, keys_qwen, model_temperature
 
 set_llm_cache(InMemoryCache())
 
@@ -29,10 +29,11 @@ class Qwen(LLM):
         return content
 
     def _call_prompt(self, prompt, **kwargs: Any):
-        temperature = get_config("settings.config.TEMPERATURE")
-        dashscope.api_key = get_config("settings.models.QWEN_API_KEY")
+        temperature = model_temperature()
+        dashscope.api_key = keys_qwen()
+        modelName = dialog_model()
         response = Generation.call(
-            model="qwen-turbo", prompt=prompt, temperature=float(temperature), **kwargs
+            model=modelName, prompt=prompt, temperature=temperature, **kwargs
         )
         if response.status_code == HTTPStatus.OK:
             # print(response)

@@ -6,17 +6,11 @@ from langchain.agents import AgentType, Tool, initialize_agent
 from textcraft.models.llms.qwen import Qwen
 from textcraft.tools.label_tool import LabelTool
 from textcraft.tools.qa_tool import QATool
-from textcraft.tools.title_tool import TitleTool
 
 llm = Qwen(temperature=0)
 
 # tools
 tools = [
-    Tool(
-        name="title tool",
-        func=TitleTool().run,
-        description="Generate a title for the text.",
-    ),
     Tool(
         name="label tool",
         func=LabelTool().run,

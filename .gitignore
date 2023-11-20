@@ -163,5 +163,3 @@ cython_debug/
 
 # Complex
 flagged/
-.env
-config.json

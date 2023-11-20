@@ -1,19 +1,27 @@
 from pathlib import Path
 
 from dotenv import dotenv_values
-from pydantic import BaseSettings
+from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
     # CONFIG
-    MONGODB_URL: str = None
-    MONGODB_DB: str = None
-    MONGODB_COLLECTION: str = None
-
     REDIS_HOST: str = None
     REDIS_PORT: str = None
-    REDIS_DB: str = None
+    REDIS_DB: int = None
     REDIS_PASSWORD: str = None
+    REDIS_SENTINEL_MASTER: str = None
+    SOCKET_TIMEOUT: float = None
+
+    ELASTICSEARCH_URL: str = None
+    ES_SCHEME: str = None
+    ES_HOSTS: str = None
+    ES_PORT: int = None
+
+    LANGCHAIN_TRACING_V2: bool = True
+    LANGCHAIN_ENDPOINT: str = None
+    LANGCHAIN_API_KEY: str = None
+    LANGCHAIN_PROJECT: str = None
 
 
 def refresh_settings():

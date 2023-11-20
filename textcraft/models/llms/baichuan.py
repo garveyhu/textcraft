@@ -7,7 +7,7 @@ from langchain.cache import InMemoryCache
 from langchain.globals import set_llm_cache
 from langchain.llms.base import LLM
 
-from textcraft.core.user_config import get_config
+from textcraft.core.config import model_temperature
 
 logging.basicConfig(level=logging.INFO)
 set_llm_cache(InMemoryCache())
@@ -29,7 +29,7 @@ class Baichuan(LLM):
         return "baichuan"
 
     def _post(self, prompt):
-        temperature = float(get_config("settings.config.TEMPERATURE"))
+        temperature = model_temperature()
         param_dict = {"prompt": prompt}
         response = requests.post(url=self.url, json=param_dict)
         content = ""

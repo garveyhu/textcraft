@@ -3,7 +3,6 @@ from fastapi import APIRouter, HTTPException, Request
 
 from textcraft.core.settings import env_file, refresh_settings, settings
 from textcraft.core.user_config import get_config_dict
-from textcraft.utils.mongo_manager import MongoDBManager
 from textcraft.utils.redis_manager import RedisManager
 
 config_router = APIRouter(prefix="/settings", tags=["应用配置API"])
@@ -53,10 +52,8 @@ async def system_runtime_config():
 async def user_config_create(request: Request):
     try:
         json_data = await request.json()
-        mongo_manager = MongoDBManager()
         redis_manager = RedisManager()
 
-        mongo_manager.insert_config(json_data)
         redis_manager.update_config(json_data)
 
         return "User configuration created successfully"
@@ -68,10 +65,8 @@ async def user_config_create(request: Request):
 async def user_config_update(request: Request):
     try:
         json_data = await request.json()
-        mongo_manager = MongoDBManager()
         redis_manager = RedisManager()
 
-        mongo_manager.update_config(json_data)
         redis_manager.update_config(json_data)
 
         return "User configuration updated successfully"
@@ -81,13 +76,11 @@ async def user_config_update(request: Request):
 
 @config_router.get("/user/list")
 async def user_config_list(user_id: str):
-    mongo_manager = MongoDBManager()
     redis_manager = RedisManager()
 
-    mongo_config_list = mongo_manager.get_config(user_id)
     redis_config_list = redis_manager.get_config(user_id)
 
-    return {"mongo": mongo_config_list, "redis": redis_config_list}
+    return {"redis": redis_config_list}
 
 
 @config_router.get("/user/thread")

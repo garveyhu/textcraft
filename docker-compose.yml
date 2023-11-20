@@ -5,40 +5,10 @@ services:
     container_name: textcraft
     ports:
       - "8000:8000"
-      - "7860:7860"
-      - "8501:8501"
     network_mode: host
     environment:
-      - https_proxy=http://127.0.0.1:7890
-      - http_proxy=http://127.0.0.1:7890
-      - all_proxy=socks5://127.0.0.1:7890
+      - TZ=Asia/Shanghai
     env_file:
       - .env
     volumes:
       - ./.env:/usr/src/app/.env
-
-  redis:
-    image: redis:7
-    container_name: redis
-    ports:
-      - 6379:6379
-    environment:
-      - TZ=Asia/Shanghai
-    volumes:
-      - /apps/redis/data:/data
-      - /apps/redis/conf/redis.conf:/usr/local/etc/redis/redis.conf
-      - /apps/redis/logs:/logs
-    command:
-      - /usr/local/etc/redis/redis.conf
-
-  mongo:
-    image: mongo:7
-    container_name: mongodb
-    ports:
-      - 27017:27017
-    environment:
-      - TZ=Asia/Shanghai
-    volumes:
-      - /apps/mongodb/data:/data/db
-      - /apps/mongodb/conf/mongod.conf:/etc/mongod.conf
-      - /apps/mongodb/logs:/data/logs

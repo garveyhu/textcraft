@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "textcraft"
-version = "0.0.2"
+version = "0.0.3"
 description = "Amplify llm capabilities through langchain"
 authors = ["Archer <archeruuuu@gmail.com>"]
 readme = "README.md"
@@ -8,21 +8,26 @@ license = "Apache-2.0"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-bson = "*"
 dashscope = "*"
+elasticsearch = "*"
 fastapi = "*"
 gradio = "*"
 httpx = { version = "*", extras = ["socks"] }
+kor = "*"
 langchain = "*"
 langserve = { version = "*", extras = ["all"] }
 openai = "*"
 pinecone-client = "*"
+pydantic = "2.4.2"
+pydantic-settings = "2.0.3"
+pydantic_core = "2.10.1"
 pymongo = "3.11.4"
 python-dotenv = "*"
 python-multipart = "*"
 redis = "*"
 rich = "*"
 streamlit = "*"
+sentinel = "1.0.0"
 transformers = "*"
 tiktoken = "*"
 uvicorn = "*"

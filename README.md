@@ -6,13 +6,37 @@
 
 ## 🌟 Quickstart
 
-1. 配置环境变量
+1. 配置Python解释器
+
+   Mac
+
+   命令行下运行
+
+   ```bash
+   brew install python
+   ```
+
+   Windows
+
+   在 python 官网 https://www.python.org/downloads/windows/ 上，选择最新的 Python 安装包，下载安装即可。
+
+   安装完 Python，我们在命令行输入 python3，就可以启动 python 解释器，像下面这样
+
+   ```text
+   $ python3
+   Python 3.9.6 (v3.9.6:db3ff76da1, Jun 28 2021, 11:49:53)
+   [Clang 6.0 (clang-600.0.57)] on darwin
+   Type "help", "copyright", "credits" or "license" for more information.
+   >>>
+   ```
+
+2. 配置环境变量
 
    复制.env.example修改文件名为.env，添加你的系统设置到.env文件
 
    复制config.json.example修改文件名为config.json，添加你的用户设置到config.json文件
 
-2. 启动项目
+3. 启动项目
 
    ```bash
    # Windows

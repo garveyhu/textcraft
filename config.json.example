@@ -1,45 +1,155 @@
 {
-    "user": {
-        "id": "",
-        "name": "",
-        "email": ""
+    "app": {
+        "id": ""
     },
     "settings": {
-        "langchain": {
-            "LANGCHAIN_TRACING_V2": true,
-            "LANGCHAIN_ENDPOINT": "",
-            "LANGCHAIN_API_KEY": "",
-            "LANGCHAIN_PROJECT": ""
+        "config": {
+            "default_chat": "qwen-turbo",
+            "default_embedding": "text-embedding-v1",
+            "default_vector": "elasticsearch"
         },
         "models": {
-            "OPENAI_API_KEY": "",
-            "HUGGINGFACEHUB_API_TOKEN": "",
-            "SPARK": {
-                "SPARK_APPID": "",
-                "SPARK_API_KEY": "",
-                "SPARK_API_SECRET": ""
+            "keys": {
+                "openai": {
+                    "OPENAI_API_KEY": ""
+                },
+                "spark": {
+                    "SPARK_APPID": "",
+                    "SPARK_API_KEY": "",
+                    "SPARK_API_SECRET": ""
+                },
+                "ernie": {
+                    "ERNIE_API_KEY": "",
+                    "ERNIE_API_SECRET": ""
+                },
+                "qwen": {
+                    "QWEN_API_KEY": ""
+                },
+                "complex": {
+                    "HUGGINGFACEHUB_API_TOKEN": ""
+                }
             },
-            "ERNIE": {
-                "ERNIE_API_KEY": "",
-                "ERNIE_API_SECRET": ""
-            },
-            "QWEN_API_KEY": ""
+            "chat": [
+                {
+                    "name": "text-davinci-003",
+                    "token": "4k",
+                    "type": "openai",
+                    "temperature": 0.5
+                },
+                {
+                    "name": "gpt-3.5-turbo",
+                    "token": "4k",
+                    "type": "openai",
+                    "temperature": 0.5
+                },
+                {
+                    "name": "gpt-3.5-turbo-16k",
+                    "token": "16k",
+                    "type": "openai",
+                    "temperature": 0.5
+                },
+                {
+                    "name": "gpt-3.5-turbo-1106",
+                    "token": "16k",
+                    "type": "openai",
+                    "temperature": 0.5
+                },
+                {
+                    "name": "gpt-4",
+                    "token": "8k",
+                    "type": "openai",
+                    "temperature": 0.5
+                },
+                {
+                    "name": "gpt-4-32k",
+                    "token": "32k",
+                    "type": "openai",
+                    "temperature": 0.5
+                },
+                {
+                    "name": "gpt-4-1106-preview",
+                    "token": "128k",
+                    "type": "openai",
+                    "temperature": 0.5
+                },
+                {
+                    "name": "ernie-bot-turbo",
+                    "token": "7k",
+                    "type": "ernie",
+                    "temperature": 0.5
+                },
+                {
+                    "name": "ernie-bot-4.0",
+                    "token": "3k",
+                    "type": "ernie",
+                    "temperature": 0.5
+                },
+                {
+                    "name": "spark-v2",
+                    "token": "8k",
+                    "type": "spark",
+                    "temperature": 0.5
+                },
+                {
+                    "name": "spark-v3",
+                    "token": "8k",
+                    "type": "spark",
+                    "temperature": 0.5
+                },
+                {
+                    "name": "qwen-turbo",
+                    "token": "6k",
+                    "type": "qwen",
+                    "temperature": 0.5
+                },
+                {
+                    "name": "qwen-plus",
+                    "token": "6k",
+                    "type": "qwen",
+                    "temperature": 0.5
+                }
+            ],
+            "embedding": [
+                {
+                    "name": "text-embedding-ada-002",
+                    "token": "8k",
+                    "type": "openai",
+                    "dimension": 1536
+                },
+                {
+                    "name": "embedding-v1",
+                    "token": "4k",
+                    "type": "ernie",
+                    "dimension": 1536
+                },
+                {
+                    "name": "text-embedding-v1",
+                    "token": "2k",
+                    "type": "qwen",
+                    "dimension": 1536
+                }
+            ],
+            "audio": [],
+            "video": [],
+            "image": []
         },
         "memory": {
-            "PINECONE": {
-                "PINECONE_ENV": "",
-                "PINECONE_API_KEY": ""
-            }
-        },
-        "config": {
-            "TEMPERATURE": 0.5,
-            "DEFAULT_LLM": "",
-            "DEFAULT_EMBEDDING": "",
-            "DEFAULT_VECTOR_STORE": ""
-        },
-        "complex": {
-            "ASSEMBLYAI_API_KEY": "",
-            "BEARLYAI_API_KEY": ""
+            "keys": {
+                "pinecone": {
+                    "PINECONE_ENV": "",
+                    "PINECONE_API_KEY": ""
+                }
+            },
+            "vector": [
+                {
+                    "name": "pinecone",
+                    "type": "pinecone"
+                },
+                {
+                    "name": "elasticsearch",
+                    "type": "elasticsearch"
+                }
+            ]
         }
     }
 }
