@@ -8,10 +8,8 @@ class Settings(BaseSettings):
     # CONFIG
     REDIS_HOST: str = None
     REDIS_PORT: str = None
-    REDIS_DB: int = None
+    REDIS_DB: str = None
     REDIS_PASSWORD: str = None
-    REDIS_SENTINEL_MASTER: str = None
-    SOCKET_TIMEOUT: float = None
 
     ELASTICSEARCH_URL: str = None
     ES_SCHEME: str = None
