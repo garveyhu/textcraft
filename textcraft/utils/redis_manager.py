@@ -1,19 +1,15 @@
 import json
 
-from redis import Sentinel
+import redis
 
 from textcraft.core.settings import settings
 
 
 class RedisManager:
     def __init__(self):
-        sentinel = Sentinel(
-            [(settings.REDIS_HOST, settings.REDIS_PORT)],
-            socket_timeout=settings.SOCKET_TIMEOUT,
-        )
-        self.client = sentinel.master_for(
-            settings.REDIS_SENTINEL_MASTER,
-            socket_timeout=settings.SOCKET_TIMEOUT,
+        self.client = redis.StrictRedis(
+            host=settings.REDIS_HOST,
+            port=settings.REDIS_PORT,
             db=settings.REDIS_DB,
             password=settings.REDIS_PASSWORD,
         )
